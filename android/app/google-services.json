@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "587868230404",
+    "project_id": "project-aset-properti-up-lsm",
+    "storage_bucket": "project-aset-properti-up-lsm.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:587868230404:android:f27da4bfd7a61b3802b651",
+        "android_client_info": {
+          "package_name": "com.example.aset_and_properti_up_lsm"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5WArzGLUMtkZK4rfD4UbE_-lyYZfQilk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,24 @@
+name: aset_and_properti_up_lsm
+version: 1.0.0+1
+publish_to: none
+description: A new Flutter project.
+environment:
+  sdk: ">=3.2.6 <4.0.0"
+
+dependencies:
+  cupertino_icons: ^1.0.2
+  firebase_core: ^2.27.0
+  get: 4.6.6
+  flutter:
+    sdk: flutter
+  intl: ^0.19.0
+
+dev_dependencies:
+  flutter_lints: ^2.0.0
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  assets:
+    - assets/image/
+  uses-material-design: true
