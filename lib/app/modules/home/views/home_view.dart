@@ -1,3 +1,4 @@
+
 import 'package:aset_and_properti_up_lsm/app/routes/app_pages.dart';
 import 'package:aset_and_properti_up_lsm/app/utils/component/widget_button_custom.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +27,7 @@ class HomeView extends GetView<HomeController> {
               onPressed: () {
                 authC.logout();
               },
-              icon: Icon(Icons.logout))
+              icon: const Icon(Icons.logout))
         ],
       ),
       body: SingleChildScrollView(

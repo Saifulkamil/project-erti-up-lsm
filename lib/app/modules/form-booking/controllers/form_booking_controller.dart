@@ -1,30 +1,36 @@
+import 'package:aset_and_properti_up_lsm/app/models/orders.dart';
 import 'package:aset_and_properti_up_lsm/app/utils/colors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:intl/intl.dart';
 
-import '../../../models/asest.dart';
+import '../../../controllers/auth_controller.dart';
+import '../../../models/asets.dart';
 import '../../../routes/app_pages.dart';
+import '../../../utils/component/widget_loading.dart';
 
 class FormBookingController extends GetxController {
+  final loading = WidgetLoading();
   TextEditingController namaC = TextEditingController();
   TextEditingController phoneC = TextEditingController();
   TextEditingController instansiC = TextEditingController();
-  TextEditingController jangkaWaktuC = TextEditingController();
+  TextEditingController jangkaWaktuSewaC = TextEditingController();
   TextEditingController hargaC = TextEditingController();
   final formkey = GlobalKey<FormState>();
   final selectedDate = DateTime.now().obs;
   final selectedTime = TimeOfDay.now().obs;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+  final authC = Get.find<AuthController>();
 
-  AsestModel? asestdetail;
+  AsetsModel? asetdetail;
+  OrdersModel? ordersModel;
   @override
   void onInit() {
     super.onInit();
-    asestdetail = Get.arguments;
-    print(asestdetail);
+    asetdetail = Get.arguments;
+
   }
 
   void selectDate(BuildContext context) {
@@ -36,7 +42,7 @@ class FormBookingController extends GetxController {
       builder: (context, child) {
         return Theme(
           data: ThemeData.light().copyWith(
-            colorScheme: ColorScheme.light(
+            colorScheme: const ColorScheme.light(
               primary: greenColor,
               onPrimary: Colors.white,
               surface: whiteMain,
@@ -62,7 +68,7 @@ class FormBookingController extends GetxController {
       builder: (context, child) {
         return Theme(
           data: ThemeData.light().copyWith(
-            colorScheme: ColorScheme.light(
+            colorScheme: const ColorScheme.light(
               primary: greenColor,
               onPrimary: Colors.white,
               surface: whiteMain,
@@ -85,44 +91,73 @@ class FormBookingController extends GetxController {
     namaC.dispose();
     phoneC.dispose();
     instansiC.dispose();
-    jangkaWaktuC.dispose();
+    jangkaWaktuSewaC.dispose();
     hargaC.dispose();
     super.dispose();
   }
 
   Future<void> bookinAset(String name, String nohp, String? instansi,
-      String? jangkasewa) async {
-    String formattedDate = DateFormat('dd-MM-yyyy')
-        .format(selectedDate.value);
+      String? jangkaWaktuSewa) async {
+    String formattedDate = DateFormat('dd-MM-yyyy').format(selectedDate.value);
     String formattedTime =
         '${selectedTime.value.hour}:${selectedTime.value.minute}';
 
     CollectionReference order = firestore.collection('orders');
-    int? JangkaWaktu = int.tryParse(jangkaWaktuC.text);
+    int? jangkawaktusewa = int.tryParse(jangkaWaktuSewa!);
 
-    print("$name $nohp $instansiC $jangkasewa");
     try {
+      loading.loading(Get.overlayContext!);
+
       await order.add({
         "name": name,
         "phone": nohp,
-        "properti": asestdetail!.kategori,
-        "jangka_waktu": jangkaWaktuC.text,
-        "jangka_waktu_sewa": JangkaWaktu,
+        "jangka_waktu_sewa": jangkawaktusewa,
+        "orders_aset": {
+          "title": asetdetail!.title,
+          "lokasi": asetdetail!.lokasi,
+          "alamat": asetdetail!.alamat,
+          "kabupaten": asetdetail!.kabupaten,
+          "harga": asetdetail!.harga,
+          "picture": asetdetail!.picture,
+          "kategori": asetdetail!.kategori,
+          "jangka_waktu": asetdetail!.jangka_waktu,
+        },
+        "orders_users": {"email": authC.email},
         "mulai_sewa_tanggal": formattedDate,
         "mulai_sewa_waktu": formattedTime,
-        "harga": asestdetail!.harga,
         "instansi": instansiC.text,
-        "total_pembayaran": "${asestdetail!.harga! * JangkaWaktu! }",
+        "total_pembayaran": asetdetail!.harga! * jangkawaktusewa!,
+        "status_pembayaran": false,
       }).then(
         (value) {
-          Get.toNamed(Routes.HOME);
-          print("order added");
+          firestore
+              .collection(value.parent.id)
+              .doc(value.id)
+              .get()
+              .then((DocumentSnapshot documentSnapshot) {
+            if (documentSnapshot.exists) {
+              Map<String, dynamic> data =
+                  documentSnapshot.data() as Map<String, dynamic>;
+              ordersModel = OrdersModel.fromJson(data);
+              Get.toNamed(Routes.PANDUAN_PAY, arguments: ordersModel);
+            }
+          });
         },
-      ).catchError((error) => print("Failed to add asets: $error"));
+      ).catchError((error) {
+        if (kDebugMode) {
+          print("Failed to add asets: $error");
+        }
+      });
     } on FirebaseException catch (e) {
-      print(e.code);
+      Get.back();
+      if (kDebugMode) {
+        print(e.code);
+      }
     } catch (e) {
-      print(e);
+      Get.back();
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 }

@@ -68,7 +68,7 @@ class FormBookingView extends GetView<FormBookingController> {
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(8),
                                   child: Image.network(
-                                    "${controller.asestdetail!.picture}",
+                                    "${controller.asetdetail!.picture}",
                                   ),
                                 ),
                               ),
@@ -94,14 +94,14 @@ class FormBookingView extends GetView<FormBookingController> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      "${controller.asestdetail!.nama}",
+                                      "${controller.asetdetail!.title}",
                                       style: ColorApp.whiteTextStyly(context)
                                           .copyWith(
                                               fontSize: 18,
                                               fontWeight: semiBold),
                                     ),
                                     Text(
-                                      "${controller.asestdetail!.alamat}",
+                                      "${controller.asetdetail!.alamat}",
                                       style: ColorApp.whiteTextStyly(context)
                                           .copyWith(
                                               fontSize: 16,
@@ -133,7 +133,7 @@ class FormBookingView extends GetView<FormBookingController> {
                                         fontSize: 15, fontWeight: semiBold),
                               ),
                               Text(
-                                "${controller.asestdetail!.kategori}",
+                                "${controller.asetdetail!.kategori}",
                                 style: ColorApp.blackTextStyle(context)
                                     .copyWith(
                                         fontSize: 15, fontWeight: semiBold),
@@ -155,13 +155,13 @@ class FormBookingView extends GetView<FormBookingController> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                formatter.format(controller.asestdetail!.harga),
+                                formatter.format(controller.asetdetail!.harga),
                                 style: ColorApp.blackTextStyle(context)
                                     .copyWith(
                                         fontSize: 15, fontWeight: semiBold),
                               ),
                               Text(
-                                "${controller.asestdetail!.jangka_waktu}",
+                                "${controller.asetdetail!.jangka_waktu}",
                                 style: ColorApp.blackTextStyle(context)
                                     .copyWith(
                                         fontSize: 15, fontWeight: semiBold),
@@ -325,7 +325,7 @@ class FormBookingView extends GetView<FormBookingController> {
                           ),
                           WidgetTextForm(
                               number: false,
-                              textControllet: controller.jangkaWaktuC,  validasiText: "* Jangka waktu sewa di masukan"),
+                              textControllet: controller.jangkaWaktuSewaC,  validasiText: "* Jangka waktu sewa di masukan"),
                           const SizedBox(
                             height: 15,
                           ),

@@ -1,0 +1,33 @@
+{
+    "tanggal_TF": "saiful",
+    "nama_TF": 213,
+    "nohp_TF": "saiful",
+    "name_rek": "saiful",
+    "name_bank": "saiful",
+    "jumlah": 123,
+    "foto_bukti": "saiful",
+    "pesan": "saiful",
+    "pays_orders": {
+        "name": "name",
+        "phone": "nohp",
+        "jangka_waktu_sewa": 345,
+        "mulai_sewa_tanggal": "formattedDate",
+        "mulai_sewa_waktu": "formattedTime",
+        "instansi": "instansiC.text",
+        "total_pembayaran": 1000,
+        "status_pembayaran": false,
+        "orders_aset": {
+            "title": "asetdetail",
+            "lokasi": "asetdetail!.lokasi",
+            "alamat": "asetdetail!.alamat",
+            "kabupaten": "asetdetail!.kabupaten",
+            "jangka_waktu": "sdfsdf",
+            "harga": 1000,
+            "picture": "asetdetail!.picture",
+            "kategori": "asetdetail!.kategori"
+        },
+        "orders_users": {
+            "email": "authC.email"
+        }
+    }
+}

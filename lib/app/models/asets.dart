@@ -1,52 +1,47 @@
-class AsestModel {
-  String? nama;
+// ignore_for_file: non_constant_identifier_names, unnecessary_this, prefer_collection_literals
+
+class AsetsModel {
+  String? title;
   String? lokasi;
   String? alamat;
   String? kabupaten;
   int? harga;
-  String? booking;
   String? kategori;
   String? jangka_waktu;
   String? picture;
-  bool? status;
 
-  AsestModel(
-      {this.nama,
+  AsetsModel(
+      {this.title,
       this.lokasi,
       this.alamat,
       this.kabupaten,
       this.kategori,
       this.harga,
-      this.booking,
       this.jangka_waktu,
       this.picture,
-      this.status});
+      });
 
-  AsestModel.fromJson(Map<String, dynamic> json) {
-    nama = json['nama'];
+  AsetsModel.fromJson(Map<String, dynamic> json) {
+    title = json['title'];
     lokasi = json['lokasi'];
     alamat = json['alamat'];
     kabupaten = json['kabupaten'];
     harga = json['harga'];
-    booking = json['booking'];
     kategori = json['kategori'];
     jangka_waktu = json['jangka_waktu'];
     picture = json['picture'];
-    status = json['status'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data =  Map<String, dynamic>();
-    data['nama'] = this.nama;
+    data['title'] = this.title;
     data['lokasi'] = this.lokasi;
     data['alamat'] = this.alamat;
     data['kabupaten'] = this.kabupaten;
     data['harga'] = this.harga;
-    data['booking'] = this.booking;
     data['kategori'] = this.kategori;
     data['jangka_waktu'] = this.jangka_waktu;
     data['picture'] = this.picture;
-    data['status'] = this.status;
     return data;
   }
 }

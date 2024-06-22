@@ -1,18 +1,15 @@
 import 'package:aset_and_properti_up_lsm/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 import 'package:get/get.dart';
 
 import '../../../utils/colors.dart';
 import '../../../utils/component/widget_button_custom.dart';
-import '../../../utils/component/widget_konfirm_aset.dart';
-import '../../../utils/component/widget_text_form.dart';
 import '../../../utils/text.dart';
-import '../controllers/form_booking_controller.dart';
+import '../controllers/panduan_pay_controller.dart';
 
-class DetailPayView extends GetView<FormBookingController> {
-  const DetailPayView({Key? key}) : super(key: key);
+class PanduanPayView extends GetView<PanduanPayController> {
+  const PanduanPayView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,25 +23,7 @@ class DetailPayView extends GetView<FormBookingController> {
                     .copyWith(fontSize: 18, fontWeight: semiBold),
               ),
               pinned: true,
-              actions: [
-                IconButton(
-                    onPressed: () {
-                      showModalBottomSheet(
-                        context: context,
-                        isScrollControlled: true,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        builder: (BuildContext context) {
-                          return  WidgetkonfirmAset(formBookingController: controller,);
-                        },
-                      );
-                    },
-                    icon: const Icon(
-                      Icons.check,
-                      color: greenColor,
-                    ))
-              ],
+             
             ),
             SliverToBoxAdapter(
               child: Column(
@@ -123,7 +102,7 @@ class DetailPayView extends GetView<FormBookingController> {
                         ButtonCustom(
                           text: konfirmasi_bayar,
                           onPressed: () {
-                            Get.toNamed(Routes.KONFIRM_PAY);
+                            Get.toNamed(Routes.KONFIRM_PAY, arguments: controller.ordersModel);
                           },
                         )
                       ],

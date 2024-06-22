@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:get/get.dart';
 
 import '../modules/dashbord/bindings/dashbord_binding.dart';
@@ -14,6 +16,8 @@ import '../modules/konfirm-pay/bindings/konfirm_pay_binding.dart';
 import '../modules/konfirm-pay/views/konfirm_pay_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
+import '../modules/panduan_pay/bindings/panduan_pay_binding.dart';
+import '../modules/panduan_pay/views/panduan_pay_view.dart';
 import '../modules/register/bindings/register_binding.dart';
 import '../modules/register/views/register_view.dart';
 import '../modules/status-booking/bindings/status_booking_binding.dart';
@@ -71,6 +75,11 @@ class AppPages {
       name: _Paths.DASHBORD,
       page: () => const DashbordView(),
       binding: DashbordBinding(),
+    ),
+    GetPage(
+      name: _Paths.PANDUAN_PAY,
+      page: () => const PanduanPayView(),
+      binding: PanduanPayBinding(),
     ),
   ];
 }

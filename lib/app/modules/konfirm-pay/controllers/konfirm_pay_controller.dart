@@ -1,10 +1,40 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'dart:io';
 
+import 'package:aset_and_properti_up_lsm/app/models/orders.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+
+import '../../../routes/app_pages.dart';
 import '../../../utils/colors.dart';
+import '../../../utils/component/widget_loading.dart';
 
 class KonfirmPayController extends GetxController {
   final selectedDate = DateTime.now().obs;
+  final storage = FirebaseStorage.instance;
+  final loading = WidgetLoading();
+  TextEditingController namaC = TextEditingController();
+  TextEditingController phoneC = TextEditingController();
+  TextEditingController pesanC = TextEditingController();
+  TextEditingController namaRekeningPengirimC = TextEditingController();
+  TextEditingController jumlahHargaC = TextEditingController();
+  final formkey = GlobalKey<FormState>();
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  String? namaBank;
+  OrdersModel? ordersModel;
+  File? image;
+  var isImagePayment = false.obs;
+  var imagePathPayment = "".obs;
+  @override
+  void onInit() {
+    super.onInit();
+    ordersModel = Get.arguments;
+  }
+
   void selectDate(BuildContext context) {
     showDatePicker(
       context: context,
@@ -32,5 +62,104 @@ class KonfirmPayController extends GetxController {
     });
   }
 
-  
+  void setpicture(String path) {
+    String fileName = path.split('/').last;
+    imagePathPayment.value = fileName;
+    isImagePayment.value = true;
+  }
+
+  Future<void> pilihfoto() async {
+    var imagepick = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+    );
+    if (imagepick != null) {
+      File imageFile = File(imagepick.path);
+
+      // ignore: unnecessary_null_comparison
+      if (imageFile != null) {
+        image = File(imageFile.path);
+        setpicture(image!.path);
+      }
+    }
+  }
+
+  Future<void> payment(
+    String name,
+    int? nohp,
+    String? namarek,
+    int? jumlah,
+  ) async {
+    String formattedDate = DateFormat('dd-MM-yyyy').format(selectedDate.value);
+
+    final storageRef = storage.ref();
+
+    final asetRef = storageRef.child("payment/");
+    CollectionReference payments = firestore.collection('payments');
+    // int? jangkawaktusewa = int.tryParse(jangkaWaktuSewa!);
+
+    // print("$name $nohp $instansiC $jangkawaktusewa");
+    try {
+      Map<String, dynamic> data = ordersModel!.toJson();
+
+      loading.loading(Get.overlayContext!);
+      await asetRef
+          .child("${ordersModel!.ordersUsers!.email}")
+          .child(imagePathPayment.value)
+          .putFile(image!);
+
+      await payments.add({
+        "tanggal_TF": formattedDate,
+        "nama_TF": name,
+        "nohp_TF": nohp,
+        "name_rek": namaRekeningPengirimC.text,
+        "name_bank": namaBank,
+        "jumlah": jumlah,
+        "foto_bukti": imagePathPayment.value,
+        "pesan": pesanC.text,
+        "pays_orders": data
+      }).then(
+        (value) {
+          // firestore
+          //     .collection(value.parent.id)
+          //     .doc(value.id)
+          //     .get()
+          //     .then((DocumentSnapshot documentSnapshot) {
+          //   if (documentSnapshot.exists) {
+          //     print('Document exists on the database');
+          //     print(documentSnapshot.data());
+          //     Map<String, dynamic> data =
+          //         documentSnapshot.data() as Map<String, dynamic>;
+          //     // ordersModel = OrdersModel.fromJson(data);
+          //     // print(ordersModel);
+          //   }
+          // });
+          Get.toNamed(Routes.HOME);
+        },
+      ).catchError((error) {
+        if (kDebugMode) {
+          print("Failed to add asets: $error");
+        }
+      });
+    } on FirebaseException catch (e) {
+      Get.back();
+      if (kDebugMode) {
+        print(e.code);
+      }
+    } catch (e) {
+      Get.back();
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    namaC.dispose();
+    phoneC.dispose();
+    pesanC.dispose();
+    namaRekeningPengirimC.dispose();
+    jumlahHargaC.dispose();
+    super.dispose();
+  }
 }

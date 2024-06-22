@@ -1,23 +1,20 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
+import '../../../controllers/auth_controller.dart';
+
 class StatusBookingController extends GetxController {
-  //TODO: Implement StatusBookingController
+  FirebaseFirestore asetsFirestore = FirebaseFirestore.instance;
+  final authC = Get.find<AuthController>();
 
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
+  // String? kategori;
+  // @override
+  // void onInit() {
+  //   super.onInit();
+  //   kategori = Get.arguments;
+  // }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> streamAsets() async* {
+    yield* asetsFirestore.collection('orders').snapshots();
   }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
 }

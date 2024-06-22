@@ -12,102 +12,101 @@ class WidgetKategoriPoject extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            InkWell(
-              onTap: () {
-                Get.toNamed(Routes.KATEGORI);
-              },
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    height: 80,
-                    width: 81.4,
-                    child: Image.asset(
-                      "assets/image/ic_tanah.png",
-                    ),
+    return Column(children: [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          InkWell(
+            onTap: () => Get.toNamed(Routes.KATEGORI, arguments: tanah),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: 80,
+                  width: 81.4,
+                  child: Image.asset(
+                    "assets/image/ic_tanah.png",
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Text(tanah,
-                      style: ColorApp.blackTextStyle(context)
-                          .copyWith(fontSize: 12, fontWeight: light))
-                ],
-              ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Text(tanah,
+                    style: ColorApp.blackTextStyle(context)
+                        .copyWith(fontSize: 12, fontWeight: light))
+              ],
             ),
-            InkWell(
-              onTap: () {},
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    height: 80,
-                    width: 81.4,
-                    child: Image.asset(
-                      "assets/image/ic_rumah_dinas.png",
-                    ),
+          ),
+          InkWell(
+            onTap: () => Get.toNamed(Routes.KATEGORI, arguments: rumah_dinas),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: 80,
+                  width: 81.4,
+                  child: Image.asset(
+                    "assets/image/ic_rumah_dinas.png",
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Text(rumah_dinas1,
-                      textAlign: TextAlign.center,
-                      style: ColorApp.blackTextStyle(context)
-                          .copyWith(fontSize: 12, fontWeight: light))
-                ],
-              ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Text(rumah_dinas1,
+                    textAlign: TextAlign.center,
+                    style: ColorApp.blackTextStyle(context)
+                        .copyWith(fontSize: 12, fontWeight: light))
+              ],
             ),
-            InkWell(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    height: 80,
-                    width: 81.4,
-                    child: Image.asset(
-                      "assets/image/ic_gedung_aula.png",
-                    ),
+          ),
+          InkWell(
+            onTap: () => Get.toNamed(Routes.KATEGORI, arguments: gedung_aula),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: 80,
+                  width: 81.4,
+                  child: Image.asset(
+                    "assets/image/ic_gedung_aula.png",
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Text(gedung_aula1,
-                      textAlign: TextAlign.center,
-                      style: ColorApp.blackTextStyle(context)
-                          .copyWith(fontSize: 12, fontWeight: light))
-                ],
-              ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Text(gedung_aula1,
+                    textAlign: TextAlign.center,
+                    style: ColorApp.blackTextStyle(context)
+                        .copyWith(fontSize: 12, fontWeight: light))
+              ],
             ),
-            InkWell(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    height: 70,
-                    width: 71.4,
-                    child: Image.asset(
-                      "assets/image/ic_gedung_olahraga.png",
-                    ),
+          ),
+          InkWell(
+            onTap: () =>
+                Get.toNamed(Routes.KATEGORI, arguments: gedung_olahraga),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: 70,
+                  width: 71.4,
+                  child: Image.asset(
+                    "assets/image/ic_gedung_olahraga.png",
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Text(gedung_aula1,
-                      textAlign: TextAlign.center,
-                      style: ColorApp.blackTextStyle(context)
-                          .copyWith(fontSize: 12, fontWeight: light)),
-                ],
-              ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Text(gedung_aula1,
+                    textAlign: TextAlign.center,
+                    style: ColorApp.blackTextStyle(context)
+                        .copyWith(fontSize: 12, fontWeight: light)),
+              ],
             ),
-          ],
-        ),
-      ]),
-    );
+          ),
+        ],
+      ),
+    ]);
   }
 }

@@ -1,4 +1,3 @@
-import 'package:aset_and_properti_up_lsm/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';

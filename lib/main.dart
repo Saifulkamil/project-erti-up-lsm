@@ -25,11 +25,16 @@ class MyApp extends StatelessWidget {
     return StreamBuilder<User?>(
         stream: authC.streamAuthStatus(),
         builder: (context, snapshot) {
-          print(snapshot.data);
+          if (snapshot.hasData) {
+            authC.email = snapshot.data!.email;
+          }
           if (snapshot.connectionState == ConnectionState.active) {
             return GetMaterialApp(
               title: "Application",
-              initialRoute: snapshot.data != null && snapshot.data!.emailVerified == true? AppPages.INITIAL : Routes.DASHBORD,
+              initialRoute:
+                  snapshot.data != null && snapshot.data!.emailVerified == true
+                      ? AppPages.INITIAL
+                      : Routes.DASHBORD,
               getPages: AppPages.routes,
             );
           }

@@ -135,6 +135,7 @@ class LoginView extends GetView<LoginController> {
                     WidgetTextButton(
                       text: "daftar",
                       onPressed: () {
+                       
                         Get.toNamed(Routes.REGISTER);
                       },
                     )

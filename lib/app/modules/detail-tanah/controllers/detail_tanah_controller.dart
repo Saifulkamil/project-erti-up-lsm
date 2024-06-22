@@ -1,13 +1,13 @@
 import 'package:get/get.dart';
 
-import '../../../models/asest.dart';
+import '../../../models/asets.dart';
 
 class DetailTanahController extends GetxController {
-  AsestModel? asestdetail;
+  AsetsModel? asestdetail;
   @override
   void onInit() {
     super.onInit();
     asestdetail = Get.arguments;
-    print(asestdetail);
+    (asestdetail);
   }
 }

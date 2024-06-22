@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-import '../../models/asest.dart';
+import '../../models/asets.dart';
 import '../../modules/home/controllers/home_controller.dart';
 
 // ignore: must_be_immutable
@@ -24,19 +24,19 @@ class WidgetAsetTersedia extends StatelessWidget {
           stream: homeController!.streamAsets(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return const CircularProgressIndicator();
+              return const Center(child: CircularProgressIndicator());
             }
 
-            List<AsestModel> allAsets = [];
+            List<AsetsModel> allAsets = [];
 
             for (var element in snapshot.data!.docs) {
-              allAsets.add(AsestModel.fromJson(element.data()));
+              allAsets.add(AsetsModel.fromJson(element.data()));
             }
             return ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: allAsets.length,
                 itemBuilder: (context, index) {
-                  AsestModel asestModel = allAsets[index];
+                  AsetsModel asestModel = allAsets[index];
 
                   return Padding(
                     padding: const EdgeInsets.only(right: 15.0),
@@ -56,7 +56,7 @@ class WidgetAsetTersedia extends StatelessWidget {
 
 // ignore: must_be_immutable
 class AsetTersedia extends StatelessWidget {
-  AsestModel? asestModel;
+  AsetsModel? asestModel;
   AsetTersedia({
     required this.asestModel,
     super.key,
@@ -91,7 +91,7 @@ class AsetTersedia extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10.0),
                   child: Text(
-                    asestModel!.booking == true ? "Tersedia" : "Booked",
+                     "Tersedia",
                     style: ColorApp.whiteTextStyly(context)
                         .copyWith(fontSize: 12, fontWeight: semiBold),
                   ),

@@ -43,7 +43,7 @@ class DetailTanahView extends GetView<DetailTanahController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "${controller.asestdetail!.nama}",
+                      "${controller.asestdetail!.title}",
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: ColorApp.blackTextStyle(context)
