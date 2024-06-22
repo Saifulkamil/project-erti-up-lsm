@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 
 class WidgetTextForm extends StatelessWidget {
   bool? number;
-   WidgetTextForm({
+  IconData? icon;
+  String? hintText;
+  WidgetTextForm({
     this.number,
+    this.hintText,
+    this.icon,
     super.key,
   });
 
@@ -20,9 +24,10 @@ class WidgetTextForm extends StatelessWidget {
       //   return null;
       // },
       // controller: loginC.passC,
-      
-      keyboardType: number! ? TextInputType.text :TextInputType.phone,
+
+      keyboardType: number! ? TextInputType.text : TextInputType.phone,
       decoration: InputDecoration(
+        hintText: hintText,
           filled: true,
           fillColor: greyColor2,
           labelStyle: ColorApp.greyTextStyly(context).copyWith(),

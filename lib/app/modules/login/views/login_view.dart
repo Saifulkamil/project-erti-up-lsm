@@ -1,10 +1,12 @@
+import 'package:aset_and_properti_up_lsm/app/routes/app_pages.dart';
 import 'package:aset_and_properti_up_lsm/app/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-import '../../../routes/app_pages.dart';
+import '../../../controllers/auth_controller.dart';
 import '../../../utils/component/widget_button_custom.dart';
+import '../../../utils/component/widget_text_button.dart';
 import '../../../utils/text.dart';
 import '../controllers/login_controller.dart';
 
@@ -12,6 +14,8 @@ class LoginView extends GetView<LoginController> {
   const LoginView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final authC = Get.find<AuthController>();
+
     return Scaffold(
         backgroundColor: Theme.of(context).colorScheme.background,
         appBar: AppBar(
@@ -27,11 +31,11 @@ class LoginView extends GetView<LoginController> {
                 SizedBox(
                   height: 250,
                   child: Image.asset(
-                    "assets/image/img_vocaject.png",
+                    "assets/image/img_login.png",
                   ),
                 ),
                 const SizedBox(
-                  height: 100,
+                  height: 10,
                 ),
                 TextFormField(
                   // validator: (value) {
@@ -43,7 +47,7 @@ class LoginView extends GetView<LoginController> {
                   //   return null;
                   // },
                   autocorrect: false,
-                  // controller: loginC.passC,
+                  controller: controller.emailC,
                   keyboardType: TextInputType.visiblePassword,
                   decoration: InputDecoration(
                       hintText: Email,
@@ -75,7 +79,7 @@ class LoginView extends GetView<LoginController> {
                       //   return null;
                       // },
                       autocorrect: false,
-                      // controller: loginC.passC,
+                      controller: controller.passC,
                       keyboardType: TextInputType.visiblePassword,
                       obscureText: controller.isHidden.value,
                       decoration: InputDecoration(
@@ -88,7 +92,6 @@ class LoginView extends GetView<LoginController> {
                                 ? Icons.visibility_off
                                 : Icons.visibility),
                           ),
-                         
                           hintText: password,
                           labelText: password,
                           hintStyle: ColorApp.greyTextStyly(context).copyWith(),
@@ -113,11 +116,29 @@ class LoginView extends GetView<LoginController> {
                   padding: const EdgeInsets.symmetric(horizontal: 70.0),
                   child: ButtonCustom(
                     onPressed: () {
-                      Get.toNamed(Routes.HOME);
+                      // Get.toNamed(Routes.HOME);
+                      authC.login(
+                          controller.emailC.text, controller.passC.text);
                     },
                     text: masuk,
                     icon: Icons.login_outlined,
                   ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // Text Belum punya akun
+                    Text("Belum punya akun",
+                        style: ColorApp.blackTextStyle(context)
+                            .copyWith(fontSize: 14, fontWeight: semiBold)),
+                    // Button untuk daftar akun baru
+                    WidgetTextButton(
+                      text: "daftar",
+                      onPressed: () {
+                        Get.toNamed(Routes.REGISTER);
+                      },
+                    )
+                  ],
                 ),
               ],
             ),

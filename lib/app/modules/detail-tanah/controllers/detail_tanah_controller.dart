@@ -1,23 +1,13 @@
 import 'package:get/get.dart';
 
-class DetailTanahController extends GetxController {
-  //TODO: Implement DetailTanahController
+import '../../../models/asest.dart';
 
-  final count = 0.obs;
+class DetailTanahController extends GetxController {
+  AsestModel? asestdetail;
   @override
   void onInit() {
     super.onInit();
+    asestdetail = Get.arguments;
+    print(asestdetail);
   }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
 }

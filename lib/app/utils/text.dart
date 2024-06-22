@@ -46,3 +46,11 @@ const panduan_no3 = "3. Input jumlah nominal yang ingin dibayarkan.";
 const panduan_terakhir = "Pilih bayar dan masukan nama lengkap Anda.";
 const panduan_deskripsi =
     "SEGERA LAKUKAN PEMBAYARAN DAN HARAP LAKUKAN KONFIRMASI PEMBAYARAN MAX 1X24 JAM SETELAH MELAKUKAN BOOKING DENGAN MENGISI FORM KONFIRMASI DI BAWAH INI.";
+const tanggal_transfer = "TANGGAL TRANSFER";
+const nama_rekening_pengirim = "NAMA REKENING PENGIRIM";
+const bank_pengirim = "BANK PENGIRIM";
+const jumlah = "JUMLAH";
+const bukti_transfer = "BUKTI TRANSFER";
+const pilih_sebuah_gambar = "Pilih sebuah gambar...";
+const pesan = "OPSIONAL"; 
+const cari_nama_bank = "Cari nama bank"; 

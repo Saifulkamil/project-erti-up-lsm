@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import '../../../controllers/auth_controller.dart';
 import '../../../utils/colors.dart';
 import '../../../utils/component/widget_aset_tersedia.dart';
 import '../../../utils/component/widget_kategori_poject.dart';
@@ -14,10 +15,19 @@ class HomeView extends GetView<HomeController> {
   const HomeView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final authC = Get.find<AuthController>();
+
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
         leading: const Center(),
+        actions: [
+          IconButton(
+              onPressed: () {
+                authC.logout();
+              },
+              icon: Icon(Icons.logout))
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -28,7 +38,7 @@ class HomeView extends GetView<HomeController> {
               SizedBox(
                 height: 250,
                 child: Image.asset(
-                  "assets/image/img_vocaject.png",
+                  "assets/image/img_utama.png",
                 ),
               ),
               const SizedBox(
@@ -50,21 +60,8 @@ class HomeView extends GetView<HomeController> {
               const SizedBox(
                 height: 10,
               ),
-              SizedBox(
-                height: 165,
-                child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 5,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.only(right: 15.0),
-                        child: InkWell(
-                            onTap: () {
-                              Get.toNamed(Routes.DETAIL_TANAH);
-                            },
-                            child: const AsetTersedia()),
-                      );
-                    }),
+              WidgetAsetTersedia(
+                homeController: controller,
               )
             ],
           ),

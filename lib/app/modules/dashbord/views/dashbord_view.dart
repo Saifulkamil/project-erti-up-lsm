@@ -22,24 +22,27 @@ class DashbordView extends GetView<DashbordController> {
             padding: const EdgeInsets.symmetric(horizontal: 10.0),
             child: Column(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SizedBox(
-                      width: 100,
-                      height: 50,
-                      child: Image.asset(
-                        "assets/image/img_vocaject.png",
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal:20.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                        width: 100,
+                        height: 50,
+                        child: Image.asset(
+                          "assets/image/img_bumn.png",
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      width: 100,
-                      height: 50,
-                      child: Image.asset(
-                        "assets/image/img_vocaject.png",
+                      SizedBox(
+                        width: 100,
+                        height: 50,
+                        child: Image.asset(
+                          "assets/image/img_pln.png",
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
                 const SizedBox(
                   height: 30,
@@ -65,7 +68,7 @@ class DashbordView extends GetView<DashbordController> {
                 SizedBox(
                   height: 250,
                   child: Image.asset(
-                    "assets/image/img_vocaject.png",
+                    "assets/image/img_dashboard.png",
                   ),
                 ),
                 const SizedBox(
@@ -88,6 +91,8 @@ class DashbordView extends GetView<DashbordController> {
                   padding: const EdgeInsets.symmetric(horizontal: 70.0),
                   child: ButtonCustom(
                     onPressed: () {
+                      Get.toNamed(Routes.REGISTER);
+
                     },
                     text: daftar,
                   ),

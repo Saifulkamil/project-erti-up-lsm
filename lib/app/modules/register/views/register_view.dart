@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import '../../../controllers/auth_controller.dart';
 import '../../../utils/colors.dart';
 import '../../../utils/component/widget_button_custom.dart';
 import '../../../utils/text.dart';
@@ -12,10 +13,12 @@ class RegisterView extends GetView<RegisterController> {
   const RegisterView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final authC = Get.find<AuthController>();
+
     return Scaffold(
         backgroundColor: Theme.of(context).colorScheme.background,
         appBar: AppBar(
-          title: Text(masuk,
+          title: Text(daftar,
               style: ColorApp.blackTextStyle(context)
                   .copyWith(fontSize: 22, fontWeight: semiBold)),
         ),
@@ -27,11 +30,11 @@ class RegisterView extends GetView<RegisterController> {
                 SizedBox(
                   height: 250,
                   child: Image.asset(
-                    "assets/image/img_vocaject.png",
+                    "assets/image/img_login.png",
                   ),
                 ),
                 const SizedBox(
-                  height: 100,
+                  height: 10,
                 ),
                 TextFormField(
                   // validator: (value) {
@@ -43,7 +46,7 @@ class RegisterView extends GetView<RegisterController> {
                   //   return null;
                   // },
                   autocorrect: false,
-                  // controller: loginC.passC,
+                  controller: controller.emailC,
                   keyboardType: TextInputType.visiblePassword,
                   decoration: InputDecoration(
                       hintText: Email,
@@ -65,46 +68,35 @@ class RegisterView extends GetView<RegisterController> {
                 const SizedBox(
                   height: 15,
                 ),
-                Obx(() => TextFormField(
-                      // validator: (value) {
-                      //   if (value!.isEmpty) {
-                      //     return "* Password Harus Di Masukan";
-                      //   } else if (value.length < 8) {
-                      //     return "* Password harus 8 huruf";
-                      //   }
-                      //   return null;
-                      // },
-                      autocorrect: false,
-                      // controller: loginC.passC,
-                      keyboardType: TextInputType.visiblePassword,
-                      obscureText: controller.isHidden.value,
-                      decoration: InputDecoration(
-                          suffixIcon: IconButton(
-                            color: greyColor,
-                            onPressed: () {
-                              controller.isHidden.toggle();
-                            },
-                            icon: Icon(controller.isHidden.isFalse
-                                ? Icons.visibility_off
-                                : Icons.visibility),
-                          ),
-                          hintText: password,
-                          labelText: password,
-                          hintStyle: ColorApp.greyTextStyly(context).copyWith(),
-                          labelStyle:
-                              ColorApp.greyTextStyly(context).copyWith(),
-                          prefixIcon: const Icon(Icons.key),
-                          prefixIconColor: Colors.grey,
-                          contentPadding: const EdgeInsets.symmetric(
-                              vertical: 15, horizontal: 10.0),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8)),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Theme.of(context).colorScheme.secondary),
-                            borderRadius: BorderRadius.circular(8),
-                          )),
-                    )),
+                TextFormField(
+                  // validator: (value) {
+                  //   if (value!.isEmpty) {
+                  //     return "* Password Harus Di Masukan";
+                  //   } else if (value.length < 8) {
+                  //     return "* Password harus 8 huruf";
+                  //   }
+                  //   return null;
+                  // },
+                  autocorrect: false,
+                  controller: controller.passC,
+                  keyboardType: TextInputType.visiblePassword,
+                  decoration: InputDecoration(
+                      hintText: password,
+                      labelText: password,
+                      hintStyle: ColorApp.greyTextStyly(context).copyWith(),
+                      labelStyle: ColorApp.greyTextStyly(context).copyWith(),
+                      prefixIcon: const Icon(Icons.key),
+                      prefixIconColor: Colors.grey,
+                      contentPadding: const EdgeInsets.symmetric(
+                          vertical: 15, horizontal: 10.0),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8)),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Theme.of(context).colorScheme.secondary),
+                        borderRadius: BorderRadius.circular(8),
+                      )),
+                ),
                 const SizedBox(
                   height: 20,
                 ),
@@ -112,9 +104,11 @@ class RegisterView extends GetView<RegisterController> {
                   padding: const EdgeInsets.symmetric(horizontal: 70.0),
                   child: ButtonCustom(
                     onPressed: () {
-                      Get.toNamed(Routes.HOME);
+                      // Get.toNamed(Routes.HOME);
+                      authC.signup(
+                          controller.emailC.text, controller.passC.text);
                     },
-                    text: masuk,
+                    text: daftar,
                     icon: Icons.login_outlined,
                   ),
                 ),

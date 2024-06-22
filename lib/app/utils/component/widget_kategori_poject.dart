@@ -26,14 +26,14 @@ class WidgetKategoriPoject extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    height: 40,
-                    width: 41.4,
+                    height: 80,
+                    width: 81.4,
                     child: Image.asset(
-                      "assets/image/ic_mobile.png",
+                      "assets/image/ic_tanah.png",
                     ),
                   ),
                   const SizedBox(
-                    height: 5,
+                    height: 10,
                   ),
                   Text(tanah,
                       style: ColorApp.blackTextStyle(context)
@@ -47,14 +47,14 @@ class WidgetKategoriPoject extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    height: 40,
-                    width: 40.11,
+                    height: 80,
+                    width: 81.4,
                     child: Image.asset(
-                      "assets/image/ic_web.png",
+                      "assets/image/ic_rumah_dinas.png",
                     ),
                   ),
                   const SizedBox(
-                    height: 5,
+                    height: 10,
                   ),
                   Text(rumah_dinas1,
                       textAlign: TextAlign.center,
@@ -68,14 +68,14 @@ class WidgetKategoriPoject extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    height: 39,
-                    width: 40.11,
+                    height: 80,
+                    width: 81.4,
                     child: Image.asset(
-                      "assets/image/ic_desain.png",
+                      "assets/image/ic_gedung_aula.png",
                     ),
                   ),
                   const SizedBox(
-                    height: 5,
+                    height: 10,
                   ),
                   Text(gedung_aula1,
                       textAlign: TextAlign.center,
@@ -89,14 +89,14 @@ class WidgetKategoriPoject extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    height: 40,
-                    width: 40.11,
+                    height: 70,
+                    width: 71.4,
                     child: Image.asset(
-                      "assets/image/ic_editor.png",
+                      "assets/image/ic_gedung_olahraga.png",
                     ),
                   ),
                   const SizedBox(
-                    height: 5,
+                    height: 10,
                   ),
                   Text(gedung_aula1,
                       textAlign: TextAlign.center,

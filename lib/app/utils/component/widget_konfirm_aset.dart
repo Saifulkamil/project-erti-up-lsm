@@ -221,6 +221,34 @@ class WidgetkonfirmAset extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
+                        mulai_sewa,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: ColorApp.blackTextStyle(context)
+                            .copyWith(fontSize: 17, fontWeight: bold),
+                      ),
+                      Text(
+                        "12-4-2002",
+                        style: ColorApp.blackTextStyle(context)
+                            .copyWith(fontSize: 16, fontWeight: semiBold),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  Container(
+                    height: 1,
+                    width: double.infinity,
+                    decoration: const BoxDecoration(color: greyColor),
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
                         harga_sewa,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../../../routes/app_pages.dart';
 import '../../../utils/colors.dart';
@@ -12,6 +13,8 @@ class DetailTanahView extends GetView<DetailTanahController> {
   const DetailTanahView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+     final formatter =
+        NumberFormat.currency(locale: 'id_ID', symbol: 'Rp ', decimalDigits: 0);
     return Scaffold(
         backgroundColor: Theme.of(context).colorScheme.background,
         appBar: AppBar(
@@ -28,8 +31,8 @@ class DetailTanahView extends GetView<DetailTanahController> {
                   height: 250,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8),
-                    child: Image.asset(
-                      "assets/image/img_vocaject.png",
+                    child: Image.network(
+                      "${controller.asestdetail!.picture}",
                     ),
                   ),
                 ),
@@ -40,7 +43,7 @@ class DetailTanahView extends GetView<DetailTanahController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "projectDetailsController.nameC.text",
+                      "${controller.asestdetail!.nama}",
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: ColorApp.blackTextStyle(context)
@@ -66,7 +69,7 @@ class DetailTanahView extends GetView<DetailTanahController> {
                               .copyWith(fontSize: 15, fontWeight: semiBold),
                         ),
                         Text(
-                          "Rp. {projectDetailsController.anggranC.text}",
+                          "${controller.asestdetail!.lokasi}",
                           style: ColorApp.blackTextStyle(context)
                               .copyWith(fontSize: 15, fontWeight: reguler),
                         ),
@@ -84,7 +87,7 @@ class DetailTanahView extends GetView<DetailTanahController> {
                               .copyWith(fontSize: 15, fontWeight: semiBold),
                         ),
                         Text(
-                          "sdfsdfsdf",
+                          "${controller.asestdetail!.alamat}",
                           style: ColorApp.blackTextStyle(context)
                               .copyWith(fontSize: 15, fontWeight: reguler),
                         ),
@@ -102,7 +105,7 @@ class DetailTanahView extends GetView<DetailTanahController> {
                               .copyWith(fontSize: 15, fontWeight: semiBold),
                         ),
                         Text(
-                          "formatter.format(jumlah)",
+                          "${controller.asestdetail!.kabupaten}",
                           style: ColorApp.blackTextStyle(context)
                               .copyWith(fontSize: 15, fontWeight: reguler),
                         ),
@@ -128,7 +131,7 @@ class DetailTanahView extends GetView<DetailTanahController> {
                               .copyWith(fontSize: 15, fontWeight: semiBold),
                         ),
                         Text(
-                          "RP.1.100.234",
+                          formatter.format(controller.asestdetail!.harga),
                           style: ColorApp.blackTextStyle(context)
                               .copyWith(fontSize: 15, fontWeight: reguler),
                         ),
