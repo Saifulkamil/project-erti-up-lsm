@@ -180,7 +180,7 @@ class KonfirmPayView extends GetView<KonfirmPayController> {
                       child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 15.0),
                           child: DropdownSearch(
-                            popupProps: const PopupPropsMultiSelection.dialog(
+                            popupProps: const PopupProps.dialog(
                               showSearchBox: true,
                               searchFieldProps: TextFieldProps(
                                   decoration: InputDecoration(

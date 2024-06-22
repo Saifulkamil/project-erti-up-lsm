@@ -41,16 +41,16 @@ class StatusBookingView extends GetView<StatusBookingController> {
                         ),
                         InkWell(
                           onTap: () {
-                            showModalBottomSheet(
-                              context: context,
-                              isScrollControlled: true,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              builder: (BuildContext context) {
-                                return const WidgetkonfirmAset();
-                              },
-                            );
+                            // showModalBottomSheet(
+                            //   context: context,
+                            //   isScrollControlled: true,
+                            //   shape: RoundedRectangleBorder(
+                            //     borderRadius: BorderRadius.circular(15),
+                            //   ),
+                            //   builder: (BuildContext context) {
+                            //     return  WidgetkonfirmAset(formBookingController: controller);
+                            //   },
+                            // );
                           },
                           child: Padding(
                             padding:

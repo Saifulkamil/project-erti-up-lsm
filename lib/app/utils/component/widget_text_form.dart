@@ -1,12 +1,18 @@
-import 'package:aset_and_properti_up_lsm/app/utils/colors.dart';
 import 'package:flutter/material.dart';
+
+import '../colors.dart';
 
 class WidgetTextForm extends StatelessWidget {
   bool? number;
   IconData? icon;
   String? hintText;
+  String? validasiText;
+  TextEditingController? textControllet;
+
   WidgetTextForm({
     this.number,
+    this.validasiText,
+    this.textControllet,
     this.hintText,
     this.icon,
     super.key,
@@ -15,19 +21,19 @@ class WidgetTextForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      // validator: (value) {
-      //   if (value!.isEmpty) {
-      //     return "* Password Harus Di Masukan";
-      //   } else if (value.length < 8) {
-      //     return "* Password harus 8 huruf";
-      //   }
-      //   return null;
-      // },
-      // controller: loginC.passC,
-
+      validator: (value) {
+        if (value!.isEmpty) {
+          return validasiText;
+        }
+        // else if (value.length < 8) {
+        //   return "* Password harus 8 huruf";
+        // }
+        return null;
+      },
+      controller: textControllet,
       keyboardType: number! ? TextInputType.text : TextInputType.phone,
       decoration: InputDecoration(
-        hintText: hintText,
+          hintText: hintText,
           filled: true,
           fillColor: greyColor2,
           labelStyle: ColorApp.greyTextStyly(context).copyWith(),

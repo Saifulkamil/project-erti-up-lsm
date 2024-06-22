@@ -5,6 +5,7 @@ class AsestModel {
   String? kabupaten;
   int? harga;
   String? booking;
+  String? kategori;
   String? jangka_waktu;
   String? picture;
   bool? status;
@@ -14,6 +15,7 @@ class AsestModel {
       this.lokasi,
       this.alamat,
       this.kabupaten,
+      this.kategori,
       this.harga,
       this.booking,
       this.jangka_waktu,
@@ -27,6 +29,7 @@ class AsestModel {
     kabupaten = json['kabupaten'];
     harga = json['harga'];
     booking = json['booking'];
+    kategori = json['kategori'];
     jangka_waktu = json['jangka_waktu'];
     picture = json['picture'];
     status = json['status'];
@@ -40,6 +43,7 @@ class AsestModel {
     data['kabupaten'] = this.kabupaten;
     data['harga'] = this.harga;
     data['booking'] = this.booking;
+    data['kategori'] = this.kategori;
     data['jangka_waktu'] = this.jangka_waktu;
     data['picture'] = this.picture;
     data['status'] = this.status;

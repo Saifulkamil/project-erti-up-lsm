@@ -36,7 +36,7 @@ class DetailPayView extends GetView<FormBookingController> {
                           borderRadius: BorderRadius.circular(15),
                         ),
                         builder: (BuildContext context) {
-                          return const WidgetkonfirmAset();
+                          return  WidgetkonfirmAset(formBookingController: controller,);
                         },
                       );
                     },

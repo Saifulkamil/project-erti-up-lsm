@@ -145,7 +145,7 @@ class DetailTanahView extends GetView<DetailTanahController> {
                 ),
                 ButtonCustom(
                   onPressed: () {
-                    Get.toNamed(Routes.FORM_BOOKING);
+                    Get.toNamed(Routes.FORM_BOOKING, arguments: controller.asestdetail);
                   },
                   text: booking_sekaran,
                   icon: Icons.login_outlined,

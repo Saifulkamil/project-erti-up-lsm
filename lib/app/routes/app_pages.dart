@@ -5,7 +5,7 @@ import '../modules/dashbord/views/dashbord_view.dart';
 import '../modules/detail-tanah/bindings/detail_tanah_binding.dart';
 import '../modules/detail-tanah/views/detail_tanah_view.dart';
 import '../modules/form-booking/bindings/form_booking_binding.dart';
-import '../modules/form-booking/views/form_booking_view copy.dart';
+import '../modules/form-booking/views/form_booking_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/kategori/bindings/kategori_binding.dart';

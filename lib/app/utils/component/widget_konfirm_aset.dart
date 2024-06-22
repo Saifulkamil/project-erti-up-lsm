@@ -7,19 +7,25 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
+import '../../modules/form-booking/controllers/form_booking_controller.dart';
 import '../../routes/app_pages.dart';
 import '../colors.dart';
 
 class WidgetkonfirmAset extends StatelessWidget {
-  const WidgetkonfirmAset({
+  FormBookingController? formBookingController;
+  WidgetkonfirmAset({
+    required this.formBookingController,
     super.key,
   });
   @override
   Widget build(BuildContext context) {
-    // final formatter =
-    //     NumberFormat.currency(locale: 'id_ID', symbol: 'Rp ', decimalDigits: 0);
-    // int anggaran = int.parse(projectDetailsController.anggranC.text);
-    // int jumlah = (anggaran + (anggaran * 0.05)).toInt();
+    int? jangkawaktu = int.tryParse(formBookingController!.jangkaWaktuC.text);
+    final formatter =
+        NumberFormat.currency(locale: 'id_ID', symbol: 'Rp ', decimalDigits: 0);
+    String formattedDate = DateFormat('dd-MM-yyyy')
+        .format(formBookingController!.selectedDate.value);
+    String formattedTime =
+        '${formBookingController!.selectedTime.value.hour}:${formBookingController!.selectedTime.value.minute}';
     return Container(
       height: 740,
       decoration: BoxDecoration(
@@ -81,7 +87,7 @@ class WidgetkonfirmAset extends StatelessWidget {
                             .copyWith(fontSize: 17, fontWeight: bold),
                       ),
                       Text(
-                        "polan polen",
+                        "${formBookingController!.namaC.text}",
                         style: ColorApp.blackTextStyle(context)
                             .copyWith(fontSize: 16, fontWeight: semiBold),
                       ),
@@ -109,7 +115,7 @@ class WidgetkonfirmAset extends StatelessWidget {
                             .copyWith(fontSize: 17, fontWeight: bold),
                       ),
                       Text(
-                        "080234234",
+                        "${formBookingController!.phoneC.text}",
                         style: ColorApp.greenTextStyly(context)
                             .copyWith(fontSize: 16, fontWeight: semiBold),
                       ),
@@ -142,7 +148,7 @@ class WidgetkonfirmAset extends StatelessWidget {
                       ),
                       Flexible(
                         child: Text(
-                          "Rp. {projectDetailsController.anggranC.text}",
+                          "${formBookingController!.asestdetail!.nama}",
                           textAlign: TextAlign.start,
                           style: ColorApp.blackTextStyle(context)
                               .copyWith(fontSize: 16, fontWeight: semiBold),
@@ -172,7 +178,7 @@ class WidgetkonfirmAset extends StatelessWidget {
                             .copyWith(fontSize: 17, fontWeight: bold),
                       ),
                       Text(
-                        tahunan,
+                        "${formBookingController!.asestdetail!.jangka_waktu}",
                         style: ColorApp.blackTextStyle(context)
                             .copyWith(fontSize: 16, fontWeight: semiBold),
                       ),
@@ -200,7 +206,7 @@ class WidgetkonfirmAset extends StatelessWidget {
                             .copyWith(fontSize: 17, fontWeight: bold),
                       ),
                       Text(
-                        "1",
+                        "${formBookingController!.jangkaWaktuC.text}",
                         style: ColorApp.blackTextStyle(context)
                             .copyWith(fontSize: 16, fontWeight: semiBold),
                       ),
@@ -228,7 +234,7 @@ class WidgetkonfirmAset extends StatelessWidget {
                             .copyWith(fontSize: 17, fontWeight: bold),
                       ),
                       Text(
-                        "12-4-2002",
+                        "$formattedDate $formattedTime",
                         style: ColorApp.blackTextStyle(context)
                             .copyWith(fontSize: 16, fontWeight: semiBold),
                       ),
@@ -256,7 +262,8 @@ class WidgetkonfirmAset extends StatelessWidget {
                             .copyWith(fontSize: 17, fontWeight: bold),
                       ),
                       Text(
-                        "RP7.500.000",
+                        formatter
+                            .format(formBookingController!.asestdetail!.harga),
                         style: ColorApp.blackTextStyle(context)
                             .copyWith(fontSize: 16, fontWeight: semiBold),
                       ),
@@ -284,7 +291,7 @@ class WidgetkonfirmAset extends StatelessWidget {
                             .copyWith(fontSize: 17, fontWeight: bold),
                       ),
                       Text(
-                        "pnl",
+                        formBookingController!.instansiC.text,
                         style: ColorApp.blackTextStyle(context)
                             .copyWith(fontSize: 16, fontWeight: semiBold),
                       ),
@@ -305,7 +312,9 @@ class WidgetkonfirmAset extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Rp7.500.000",
+                              formatter.format(
+                                  formBookingController!.asestdetail!.harga! *
+                                      jangkawaktu!),
                               style: ColorApp.blackTextStyle(context)
                                   .copyWith(fontSize: 16, fontWeight: bold),
                             ),
@@ -323,6 +332,12 @@ class WidgetkonfirmAset extends StatelessWidget {
                   ButtonCustom(
                     text: bayar_sekarang,
                     onPressed: () {
+                      formBookingController!.bookinAset(
+                        formBookingController!.namaC.text,
+                        formBookingController!.phoneC.text,
+                        formBookingController!.instansiC.text,
+                        formBookingController!.jangkaWaktuC.text,
+                      );
                       Get.to(() => const DetailPayView());
                     },
                   )
