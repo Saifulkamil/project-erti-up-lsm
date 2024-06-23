@@ -5,6 +5,9 @@ import '../../../controllers/auth_controller.dart';
 
 class StatusBookingController extends GetxController {
   FirebaseFirestore asetsFirestore = FirebaseFirestore.instance;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  String? doId;
+
   final authC = Get.find<AuthController>();
 
   // String? kategori;

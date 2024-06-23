@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'app/routes/app_pages.dart';
 
 Future<void> main() async {
+  
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     final authC = Get.put(AuthController(), permanent: true);
     return StreamBuilder<User?>(
         stream: authC.streamAuthStatus(),
@@ -31,6 +33,7 @@ class MyApp extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.active) {
             return GetMaterialApp(
               title: "Application",
+              debugShowCheckedModeBanner: false, 
               initialRoute:
                   snapshot.data != null && snapshot.data!.emailVerified == true
                       ? AppPages.INITIAL

@@ -122,7 +122,7 @@ class KonfirmPayView extends GetView<KonfirmPayController> {
                         Text(
                           nama,
                           style: ColorApp.blackTextStyle(context)
-                              .copyWith(fontSize: 16, fontWeight: semiBold),
+                              .copyWith(fontSize: 16, fontWeight: reguler),
                         ),
                         Text(
                           diperlukan,
@@ -147,7 +147,7 @@ class KonfirmPayView extends GetView<KonfirmPayController> {
                         Text(
                           nohp,
                           style: ColorApp.blackTextStyle(context)
-                              .copyWith(fontSize: 16, fontWeight: semiBold),
+                              .copyWith(fontSize: 16, fontWeight: reguler),
                         ),
                         Text(
                           diperlukan,
@@ -172,7 +172,7 @@ class KonfirmPayView extends GetView<KonfirmPayController> {
                         Text(
                           nama_rekening_pengirim,
                           style: ColorApp.blackTextStyle(context)
-                              .copyWith(fontSize: 16, fontWeight: semiBold),
+                              .copyWith(fontSize: 16, fontWeight: reguler),
                         ),
                         Text(
                           diperlukan,
@@ -194,7 +194,7 @@ class KonfirmPayView extends GetView<KonfirmPayController> {
                         Text(
                           bank_pengirim,
                           style: ColorApp.blackTextStyle(context)
-                              .copyWith(fontSize: 16, fontWeight: semiBold),
+                              .copyWith(fontSize: 16, fontWeight: reguler),
                         ),
                         Text(
                           diperlukan,
@@ -273,7 +273,7 @@ class KonfirmPayView extends GetView<KonfirmPayController> {
                         Text(
                           jumlah,
                           style: ColorApp.blackTextStyle(context)
-                              .copyWith(fontSize: 16, fontWeight: semiBold),
+                              .copyWith(fontSize: 16, fontWeight: reguler),
                         ),
                         Text(
                           diperlukan,
@@ -299,7 +299,7 @@ class KonfirmPayView extends GetView<KonfirmPayController> {
                         Text(
                           bukti_transfer,
                           style: ColorApp.blackTextStyle(context)
-                              .copyWith(fontSize: 16, fontWeight: semiBold),
+                              .copyWith(fontSize: 16, fontWeight: reguler),
                         ),
                         Text(
                           diperlukan,
@@ -361,7 +361,7 @@ class KonfirmPayView extends GetView<KonfirmPayController> {
                     Text(
                       "PESAN",
                       style: ColorApp.blackTextStyle(context)
-                          .copyWith(fontSize: 16, fontWeight: semiBold),
+                          .copyWith(fontSize: 16, fontWeight: reguler),
                     ),
                     const SizedBox(
                       height: 7,

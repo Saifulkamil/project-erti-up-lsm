@@ -22,11 +22,11 @@ class WidgetkonfirmAset extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (formBookingController == null) {
-      int? jangkawaktu = ordersModel!.jangkaWaktuSewa;
+      int? jangkawaktu = ordersModel!.data!.jangkaWaktuSewa;
       final formatter = NumberFormat.currency(
           locale: 'id_ID', symbol: 'Rp ', decimalDigits: 0);
       String? tanggalWaktusewa =
-          "${ordersModel!.mulaiSewaTanggal} ${ordersModel!.mulaiSewaWaktu}";
+          "${ordersModel!.data!.mulaiSewaTanggal} ${ordersModel!.data!.mulaiSewaWaktu}";
       return Container(
         height: 740,
         decoration: BoxDecoration(
@@ -65,7 +65,7 @@ class WidgetkonfirmAset extends StatelessWidget {
                       width: 15,
                     ),
                     Text(
-                      order,
+                      "Booking",
                       style: ColorApp.greenTextStyly(context)
                           .copyWith(fontSize: 20, fontWeight: bold),
                     ),
@@ -85,12 +85,12 @@ class WidgetkonfirmAset extends StatelessWidget {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: ColorApp.blackTextStyle(context)
-                              .copyWith(fontSize: 17, fontWeight: bold),
+                              .copyWith(fontSize: 17, fontWeight: semiBold),
                         ),
                         Text(
-                          "${ordersModel!.name}",
+                          "${ordersModel!.data!.name}",
                           style: ColorApp.blackTextStyle(context)
-                              .copyWith(fontSize: 16, fontWeight: semiBold),
+                              .copyWith(fontSize: 16, fontWeight: reguler),
                         ),
                       ],
                     ),
@@ -113,12 +113,12 @@ class WidgetkonfirmAset extends StatelessWidget {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: ColorApp.blackTextStyle(context)
-                              .copyWith(fontSize: 17, fontWeight: bold),
+                              .copyWith(fontSize: 17, fontWeight: semiBold),
                         ),
                         Text(
-                          "${ordersModel!.phone}",
+                          "${ordersModel!.data!.phone}",
                           style: ColorApp.greenTextStyly(context)
-                              .copyWith(fontSize: 16, fontWeight: semiBold),
+                              .copyWith(fontSize: 16, fontWeight: reguler),
                         ),
                       ],
                     ),
@@ -142,17 +142,17 @@ class WidgetkonfirmAset extends StatelessWidget {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: ColorApp.blackTextStyle(context)
-                              .copyWith(fontSize: 17, fontWeight: bold),
+                              .copyWith(fontSize: 17, fontWeight: semiBold),
                         ),
                         const SizedBox(
                           width: 10,
                         ),
                         Flexible(
                           child: Text(
-                            "${ordersModel!.ordersAset!.title}",
+                            "${ordersModel!.data!.orderAset!.title}",
                             textAlign: TextAlign.start,
                             style: ColorApp.blackTextStyle(context)
-                                .copyWith(fontSize: 16, fontWeight: semiBold),
+                                .copyWith(fontSize: 16, fontWeight: reguler),
                           ),
                         ),
                       ],
@@ -176,12 +176,12 @@ class WidgetkonfirmAset extends StatelessWidget {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: ColorApp.blackTextStyle(context)
-                              .copyWith(fontSize: 17, fontWeight: bold),
+                              .copyWith(fontSize: 17, fontWeight: semiBold),
                         ),
                         Text(
-                          "${ordersModel!.jangkaWaktuSewa}",
+                          "${ordersModel!.data!.jangkaWaktuSewa}",
                           style: ColorApp.blackTextStyle(context)
-                              .copyWith(fontSize: 16, fontWeight: semiBold),
+                              .copyWith(fontSize: 16, fontWeight: reguler),
                         ),
                       ],
                     ),
@@ -204,12 +204,12 @@ class WidgetkonfirmAset extends StatelessWidget {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: ColorApp.blackTextStyle(context)
-                              .copyWith(fontSize: 17, fontWeight: bold),
+                              .copyWith(fontSize: 17, fontWeight: semiBold),
                         ),
                         Text(
-                          "${ordersModel!.ordersAset!.jangka_waktu}",
+                          "${ordersModel!.data!.orderAset!.jangka_waktu}",
                           style: ColorApp.blackTextStyle(context)
-                              .copyWith(fontSize: 16, fontWeight: semiBold),
+                              .copyWith(fontSize: 16, fontWeight: reguler),
                         ),
                       ],
                     ),
@@ -232,12 +232,12 @@ class WidgetkonfirmAset extends StatelessWidget {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: ColorApp.blackTextStyle(context)
-                              .copyWith(fontSize: 17, fontWeight: bold),
+                              .copyWith(fontSize: 17, fontWeight: semiBold),
                         ),
                         Text(
                           tanggalWaktusewa,
                           style: ColorApp.blackTextStyle(context)
-                              .copyWith(fontSize: 16, fontWeight: semiBold),
+                              .copyWith(fontSize: 16, fontWeight: reguler),
                         ),
                       ],
                     ),
@@ -260,12 +260,12 @@ class WidgetkonfirmAset extends StatelessWidget {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: ColorApp.blackTextStyle(context)
-                              .copyWith(fontSize: 17, fontWeight: bold),
+                              .copyWith(fontSize: 17, fontWeight: semiBold),
                         ),
                         Text(
-                          formatter.format(ordersModel!.ordersAset!.harga),
+                          formatter.format(ordersModel!.data!.orderAset!.harga),
                           style: ColorApp.blackTextStyle(context)
-                              .copyWith(fontSize: 16, fontWeight: semiBold),
+                              .copyWith(fontSize: 16, fontWeight: reguler),
                         ),
                       ],
                     ),
@@ -288,12 +288,12 @@ class WidgetkonfirmAset extends StatelessWidget {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: ColorApp.blackTextStyle(context)
-                              .copyWith(fontSize: 17, fontWeight: bold),
+                              .copyWith(fontSize: 17, fontWeight: semiBold),
                         ),
                         Text(
-                          "${ordersModel!.instansi}",
+                          "${ordersModel!.data!.instansi}",
                           style: ColorApp.blackTextStyle(context)
-                              .copyWith(fontSize: 16, fontWeight: semiBold),
+                              .copyWith(fontSize: 16, fontWeight: reguler),
                         ),
                       ],
                     ),
@@ -314,10 +314,10 @@ class WidgetkonfirmAset extends StatelessWidget {
                             children: [
                               Text(
                                 formatter.format(
-                                    ordersModel!.ordersAset!.harga! *
+                                    ordersModel!.data!.orderAset!.harga! *
                                         jangkawaktu!),
                                 style: ColorApp.blackTextStyle(context)
-                                    .copyWith(fontSize: 16, fontWeight: bold),
+                                    .copyWith(fontSize: 16, fontWeight: semiBold),
                               ),
                               Text(
                                 total_bayar,
@@ -331,7 +331,7 @@ class WidgetkonfirmAset extends StatelessWidget {
                     const SizedBox(
                       height: 30,
                     ),
-                    ordersModel!.statusPembayaran == false
+                    ordersModel!.data!.statusPembayaran == false
                         ? ButtonCustom(
                             text: bayar_sekarang,
                             onPressed: () {
@@ -423,12 +423,12 @@ class WidgetkonfirmAset extends StatelessWidget {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: ColorApp.blackTextStyle(context)
-                              .copyWith(fontSize: 17, fontWeight: bold),
+                              .copyWith(fontSize: 17, fontWeight: semiBold),
                         ),
                         Text(
                           formBookingController!.namaC.text,
                           style: ColorApp.blackTextStyle(context)
-                              .copyWith(fontSize: 16, fontWeight: semiBold),
+                              .copyWith(fontSize: 16, fontWeight: reguler),
                         ),
                       ],
                     ),
@@ -451,12 +451,12 @@ class WidgetkonfirmAset extends StatelessWidget {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: ColorApp.blackTextStyle(context)
-                              .copyWith(fontSize: 17, fontWeight: bold),
+                              .copyWith(fontSize: 17, fontWeight: semiBold),
                         ),
                         Text(
                           formBookingController!.phoneC.text,
                           style: ColorApp.greenTextStyly(context)
-                              .copyWith(fontSize: 16, fontWeight: semiBold),
+                              .copyWith(fontSize: 16, fontWeight: reguler),
                         ),
                       ],
                     ),
@@ -480,17 +480,17 @@ class WidgetkonfirmAset extends StatelessWidget {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: ColorApp.blackTextStyle(context)
-                              .copyWith(fontSize: 17, fontWeight: bold),
+                              .copyWith(fontSize: 17, fontWeight: semiBold),
                         ),
                         const SizedBox(
                           width: 10,
                         ),
                         Flexible(
                           child: Text(
-                            "${formBookingController!.asetdetail!.title}",
+                            "${formBookingController!.asetsModel!.data!.title}",
                             textAlign: TextAlign.start,
                             style: ColorApp.blackTextStyle(context)
-                                .copyWith(fontSize: 16, fontWeight: semiBold),
+                                .copyWith(fontSize: 16, fontWeight: reguler),
                           ),
                         ),
                       ],
@@ -514,12 +514,12 @@ class WidgetkonfirmAset extends StatelessWidget {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: ColorApp.blackTextStyle(context)
-                              .copyWith(fontSize: 17, fontWeight: bold),
+                              .copyWith(fontSize: 17, fontWeight: semiBold),
                         ),
                         Text(
-                          "${formBookingController!.asetdetail!.jangka_waktu}",
+                          "${formBookingController!.asetsModel!.data!.jangka_waktu}",
                           style: ColorApp.blackTextStyle(context)
-                              .copyWith(fontSize: 16, fontWeight: semiBold),
+                              .copyWith(fontSize: 16, fontWeight: reguler),
                         ),
                       ],
                     ),
@@ -542,12 +542,12 @@ class WidgetkonfirmAset extends StatelessWidget {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: ColorApp.blackTextStyle(context)
-                              .copyWith(fontSize: 17, fontWeight: bold),
+                              .copyWith(fontSize: 17, fontWeight: semiBold),
                         ),
                         Text(
                           formBookingController!.jangkaWaktuSewaC.text,
                           style: ColorApp.blackTextStyle(context)
-                              .copyWith(fontSize: 16, fontWeight: semiBold),
+                              .copyWith(fontSize: 16, fontWeight: reguler),
                         ),
                       ],
                     ),
@@ -570,12 +570,12 @@ class WidgetkonfirmAset extends StatelessWidget {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: ColorApp.blackTextStyle(context)
-                              .copyWith(fontSize: 17, fontWeight: bold),
+                              .copyWith(fontSize: 17, fontWeight: semiBold),
                         ),
                         Text(
                           "$formattedDate $formattedTime",
                           style: ColorApp.blackTextStyle(context)
-                              .copyWith(fontSize: 16, fontWeight: semiBold),
+                              .copyWith(fontSize: 16, fontWeight: reguler),
                         ),
                       ],
                     ),
@@ -598,13 +598,13 @@ class WidgetkonfirmAset extends StatelessWidget {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: ColorApp.blackTextStyle(context)
-                              .copyWith(fontSize: 17, fontWeight: bold),
+                              .copyWith(fontSize: 17, fontWeight: semiBold),
                         ),
                         Text(
                           formatter
-                              .format(formBookingController!.asetdetail!.harga),
+                              .format(formBookingController!.asetsModel!.data!.harga),
                           style: ColorApp.blackTextStyle(context)
-                              .copyWith(fontSize: 16, fontWeight: semiBold),
+                              .copyWith(fontSize: 16, fontWeight: reguler),
                         ),
                       ],
                     ),
@@ -627,12 +627,12 @@ class WidgetkonfirmAset extends StatelessWidget {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: ColorApp.blackTextStyle(context)
-                              .copyWith(fontSize: 17, fontWeight: bold),
+                              .copyWith(fontSize: 17, fontWeight: semiBold),
                         ),
                         Text(
                           formBookingController!.instansiC.text,
                           style: ColorApp.blackTextStyle(context)
-                              .copyWith(fontSize: 16, fontWeight: semiBold),
+                              .copyWith(fontSize: 16, fontWeight: reguler),
                         ),
                       ],
                     ),
@@ -653,7 +653,7 @@ class WidgetkonfirmAset extends StatelessWidget {
                             children: [
                               Text(
                                 formatter.format(
-                                    formBookingController!.asetdetail!.harga! *
+                                    formBookingController!.asetsModel!.data!.harga! *
                                         jangkawaktu!),
                                 style: ColorApp.blackTextStyle(context)
                                     .copyWith(fontSize: 16, fontWeight: bold),

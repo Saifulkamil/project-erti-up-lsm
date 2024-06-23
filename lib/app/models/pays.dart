@@ -11,7 +11,7 @@ class PaysModel {
   int? jumlah;
   String? fotoBukti;
   String? pesan;
-  OrdersModel? paysOrders;
+  DataOrder? paysOrders;
 
   PaysModel(
       {this.tanggalTF,
@@ -33,8 +33,8 @@ class PaysModel {
     jumlah = json['jumlah'];
     fotoBukti = json['foto_bukti'];
     pesan = json['pesan'];
-    paysOrders = json['pays_orders'] != null
-        ?  OrdersModel.fromJson(json['pays_orders'])
+    paysOrders = json['payment_order'] != null
+        ?  DataOrder.fromJson(json['payment_order'])
         : null;
   }
 
@@ -49,7 +49,7 @@ class PaysModel {
     data['foto_bukti'] = this.fotoBukti;
     data['pesan'] = this.pesan;
     if (this.paysOrders != null) {
-      data['pays_orders'] = this.paysOrders!.toJson();
+      data['payment_order'] = this.paysOrders!.toJson();
     }
     return data;
   }

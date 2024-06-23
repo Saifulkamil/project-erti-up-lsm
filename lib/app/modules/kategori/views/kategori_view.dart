@@ -30,13 +30,27 @@ class KategoriView extends GetView<KategoriController> {
                 return const CircularProgressIndicator();
               }
 
-              List<AsetsModel> allAsets = [];
+              QuerySnapshot<Map<String, dynamic>> querySnapshot =
+                  snapshot.data!;
+              List<DocumentSnapshot<Map<String, dynamic>>> documents =
+                  querySnapshot.docs;
 
-              for (var element in snapshot.data!.docs) {
-                if (element.data()["kategori"] == controller.kategori) {
-                  allAsets.add(AsetsModel.fromJson(element.data()));
+              List<AsetsModel> allAsets = [];
+              documents.forEach((doc) {
+                Map<String, dynamic>? data = doc.data();
+                String documentId = doc.id; // Get document ID
+
+                // Convert data to AsetDetails
+                AsetDetails asetDetails = AsetDetails.fromJson(data!);
+
+                // Create AsetsModel
+                AsetsModel asetsModel =
+                    AsetsModel(docId: documentId, data: asetDetails);
+                print(asetDetails.kategori);
+                if (asetDetails.kategori == "${controller.kategori}") {
+                  allAsets.add(asetsModel);
                 }
-              }
+              });
               return ListView.builder(
                   itemCount: allAsets.length,
                   itemBuilder: (context, index) {
@@ -53,7 +67,7 @@ class KategoriView extends GetView<KategoriController> {
                               padding: const EdgeInsets.all(5),
                               decoration: BoxDecoration(
                                 border:
-                                    Border.all(width: 0.5, color: greyColor),
+                                    Border.all(width: 0.1, color: greyColor),
                                 borderRadius: BorderRadius.circular(7),
                               ),
                               height: 225,
@@ -73,7 +87,8 @@ class KategoriView extends GetView<KategoriController> {
                                           borderRadius:
                                               BorderRadius.circular(8),
                                           child: Image.network(
-                                            "${asestModel.picture}",
+                                            "${asestModel.data!.picture}",
+                                            fit: BoxFit.cover,
                                           ),
                                         ),
                                       ),
@@ -104,16 +119,16 @@ class KategoriView extends GetView<KategoriController> {
                                   const SizedBox(
                                     height: 5,
                                   ),
-                                  Text(formatter.format(asestModel.harga),
+                                  Text(formatter.format(asestModel.data!.harga),
                                       style: ColorApp.greenTextStyly(context)
                                           .copyWith(
                                               fontSize: 15, fontWeight: bold)),
-                                  Text("${asestModel.lokasi}",
+                                  Text("${asestModel.data!.lokasi}",
                                       style: ColorApp.blackTextStyle(context)
                                           .copyWith(
                                               fontSize: 16,
                                               fontWeight: semiBold)),
-                                  Text("${asestModel.alamat}",
+                                  Text("${asestModel.data!.alamat}",
                                       style: ColorApp.blackTextStyle(context)
                                           .copyWith(
                                               fontSize: 15,
@@ -121,7 +136,7 @@ class KategoriView extends GetView<KategoriController> {
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
-                                      Text("${asestModel.jangka_waktu}",
+                                      Text("${asestModel.data!.jangka_waktu}",
                                           style:
                                               ColorApp.blackTextStyle(context)
                                                   .copyWith(

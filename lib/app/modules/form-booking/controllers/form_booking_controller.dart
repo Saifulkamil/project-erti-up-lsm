@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 
 import '../../../controllers/auth_controller.dart';
 import '../../../models/asets.dart';
+import '../../../models/users.dart';
 import '../../../routes/app_pages.dart';
 import '../../../utils/component/widget_loading.dart';
 
@@ -20,17 +21,17 @@ class FormBookingController extends GetxController {
   TextEditingController hargaC = TextEditingController();
   final formkey = GlobalKey<FormState>();
   final selectedDate = DateTime.now().obs;
+  final createdAt = DateTime.now().obs;
   final selectedTime = TimeOfDay.now().obs;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   final authC = Get.find<AuthController>();
 
-  AsetsModel? asetdetail;
+  AsetsModel? asetsModel;
   OrdersModel? ordersModel;
   @override
   void onInit() {
     super.onInit();
-    asetdetail = Get.arguments;
-
+    asetsModel = Get.arguments;
   }
 
   void selectDate(BuildContext context) {
@@ -102,7 +103,10 @@ class FormBookingController extends GetxController {
     String formattedTime =
         '${selectedTime.value.hour}:${selectedTime.value.minute}';
 
+    String createdate = createdAt.string;
     CollectionReference order = firestore.collection('orders');
+    CollectionReference asets = firestore.collection('asets');
+    CollectionReference users = firestore.collection('users');
     int? jangkawaktusewa = int.tryParse(jangkaWaktuSewa!);
 
     try {
@@ -112,21 +116,14 @@ class FormBookingController extends GetxController {
         "name": name,
         "phone": nohp,
         "jangka_waktu_sewa": jangkawaktusewa,
-        "orders_aset": {
-          "title": asetdetail!.title,
-          "lokasi": asetdetail!.lokasi,
-          "alamat": asetdetail!.alamat,
-          "kabupaten": asetdetail!.kabupaten,
-          "harga": asetdetail!.harga,
-          "picture": asetdetail!.picture,
-          "kategori": asetdetail!.kategori,
-          "jangka_waktu": asetdetail!.jangka_waktu,
-        },
-        "orders_users": {"email": authC.email},
+        "orders_aset": asets.doc(asetsModel!.docId),
+        "orders_user": users.doc(authC.email),
         "mulai_sewa_tanggal": formattedDate,
         "mulai_sewa_waktu": formattedTime,
+        "created_at": createdate,
+        "update_at": createdate,
         "instansi": instansiC.text,
-        "total_pembayaran": asetdetail!.harga! * jangkawaktusewa!,
+        "total_pembayaran": asetsModel!.data!.harga! * jangkawaktusewa!,
         "status_pembayaran": false,
       }).then(
         (value) {
@@ -134,11 +131,24 @@ class FormBookingController extends GetxController {
               .collection(value.parent.id)
               .doc(value.id)
               .get()
-              .then((DocumentSnapshot documentSnapshot) {
+              .then((DocumentSnapshot documentSnapshot) async {
             if (documentSnapshot.exists) {
-              Map<String, dynamic> data =
+              Map<String, dynamic> dataBooking =
                   documentSnapshot.data() as Map<String, dynamic>;
-              ordersModel = OrdersModel.fromJson(data);
+
+              DocumentSnapshot aset =
+                  await firestore.doc(dataBooking["orders_aset"].path).get();
+              DocumentSnapshot user =
+                  await firestore.doc(dataBooking["orders_user"].path).get();
+
+              dataBooking["orders_aset"] = aset.data();
+              dataBooking["orders_user"] = user.data();
+              Map<String, dynamic> orderdata = {
+                "docId": value.id,
+                "data": dataBooking
+              };
+              OrdersModel ordersModel = OrdersModel.fromJson(orderdata);
+
               Get.toNamed(Routes.PANDUAN_PAY, arguments: ordersModel);
             }
           });

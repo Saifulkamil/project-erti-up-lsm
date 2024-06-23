@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
+import '../../../models/asets.dart';
 import '../../../utils/component/widget_konfirm_aset.dart';
 import '../controllers/status_booking_controller.dart';
 
@@ -37,111 +38,149 @@ class StatusBookingView extends GetView<StatusBookingController> {
             stream: controller.streamAsets(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return const CircularProgressIndicator();
+                return const Center(
+                    child: CircularProgressIndicator(
+                  color: greenColor,
+                ));
               }
+              var allBooking =
+                  snapshot.data!.docs.map((DocumentSnapshot document) async {
+                Map<String, dynamic> booking =
+                    document.data()! as Map<String, dynamic>;
+                String docId = document.id;
+                DocumentSnapshot aset = await controller.firestore
+                    .doc(booking["orders_aset"].path)
+                    .get();
+                DocumentSnapshot user = await controller.firestore
+                    .doc(booking["orders_user"].path)
+                    .get();
 
-              List<OrdersModel> allOrders = [];
+                booking["orders_aset"] = aset.data();
+                booking["orders_user"] = user.data();
+                Map<String, dynamic> bookingData = {
+                  "docId": docId,
+                  "data": booking
+                };
+                OrdersModel userdata = OrdersModel.fromJson(bookingData);
+                return userdata;
+              }).toList();
 
-              for (var element in snapshot.data!.docs) {
-                if (element.data()["orders_users"]["email"] ==
-                    controller.authC.email) {
-                  allOrders.add(OrdersModel.fromJson(element.data()));
-                }
-              }
-              return ListView.builder(
-                  itemCount: allOrders.length,
-                  itemBuilder: (context, index) {
-                    OrdersModel ordersModel = allOrders[index];
-
-                    return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 5),
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              InkWell(
-                                onTap: () {
-                                  showModalBottomSheet(
-                                    context: context,
-                                    isScrollControlled: true,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    builder: (BuildContext context) {
-                                      return WidgetkonfirmAset(
-                                        ordersModel: ordersModel,
-                                      );
-                                    },
-                                  );
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 3.0),
-                                  child: Card(
-                                    elevation: 5,
-                                    color: whiteMain,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(15)),
-                                    child: ListTile(
-                                      title: Text(
-                                        "${ordersModel.ordersAset!.title}",
-                                        style: ColorApp.greenTextStyly(context)
-                                            .copyWith(
-                                                fontSize: 18, fontWeight: bold),
+              return FutureBuilder(
+                  future: Future.wait(allBooking),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                          child: CircularProgressIndicator(
+                        color: greenColor,
+                      ));
+                    } else {
+                      return ListView.builder(
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (context, index) {
+                            // print(snapshot.data);
+                            OrdersModel ordersModel = snapshot.data![index];
+                            return Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 5),
+                                child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const SizedBox(
+                                        height: 5,
                                       ),
-                                      trailing:
-                                          ordersModel.statusPembayaran == true
-                                              ? const Icon(
-                                                  Icons.check_circle,
-                                                  size: 30,
-                                                  color:Colors.green,
-                                                )
-                                              : const Icon(
-                                                  Icons.timelapse_outlined,
-                                                  color: Colors.orange,
-                                                  size: 30,
-                                                ),
-                                      subtitle: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          const SizedBox(
-                                            height: 5,
-                                          ),
-                                          Text(
-                                            "${ordersModel.name}",
-                                            style:
-                                                ColorApp.blackTextStyle(context)
+                                      InkWell(
+                                        onTap: () {
+                                          showModalBottomSheet(
+                                            context: context,
+                                            isScrollControlled: true,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
+                                            ),
+                                            builder: (BuildContext context) {
+                                              return WidgetkonfirmAset(
+                                                ordersModel: ordersModel,
+                                              );
+                                            },
+                                          );
+                                        },
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 3.0),
+                                          child: Card(
+                                            elevation: 5,
+                                            color: whiteMain,
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(15)),
+                                            child: ListTile(
+                                              title: Text(
+                                                "${ordersModel.data!.orderAset!.title}",
+                                                style: ColorApp.greenTextStyly(
+                                                        context)
                                                     .copyWith(
-                                                        fontSize: 15,
-                                                        fontWeight: semiBold),
+                                                        fontSize: 18,
+                                                        fontWeight: bold),
+                                              ),
+                                              // trailing: ordersModel.data!
+                                              //             .statusPembayaran ==
+                                              //         true
+                                              //     ? const Icon(
+                                              //         Icons.check_circle,
+                                              //         size: 30,
+                                              //         color: Colors.green,
+                                              //       )
+                                              //     : const Icon(
+                                              //         Icons.timelapse_outlined,
+                                              //         color: Colors.orange,
+                                              //         size: 30,
+                                              //       ),
+                                              subtitle: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  const SizedBox(
+                                                    height: 5,
+                                                  ),
+                                                  Text(
+                                                    "${ordersModel.data!.name}",
+                                                    style:
+                                                        ColorApp.blackTextStyle(
+                                                                context)
+                                                            .copyWith(
+                                                                fontSize: 15,
+                                                                fontWeight:
+                                                                    semiBold),
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 5,
+                                                  ),
+                                                  Text(
+                                                    formatter.format(ordersModel
+                                                        .data!.totalPembayaran),
+                                                    // "",
+                                                    style:
+                                                        ColorApp.blackTextStyle(
+                                                                context)
+                                                            .copyWith(
+                                                                fontSize: 15,
+                                                                fontWeight:
+                                                                    reguler),
+                                                  ),
+                                                ],
+                                              ),
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10.0),
+                                              ),
+                                            ),
                                           ),
-                                          const SizedBox(
-                                            height: 5,
-                                          ),
-                                          Text(
-                                            formatter.format(
-                                                ordersModel.totalPembayaran),
-                                            style:
-                                                ColorApp.blackTextStyle(context)
-                                                    .copyWith(
-                                                        fontSize: 15,
-                                                        fontWeight: reguler),
-                                          ),
-                                        ],
+                                        ),
                                       ),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ]));
+                                    ]));
+                          });
+                    }
                   });
             }));
   }

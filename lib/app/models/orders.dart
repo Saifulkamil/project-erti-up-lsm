@@ -3,7 +3,29 @@
 import 'package:aset_and_properti_up_lsm/app/models/asets.dart';
 import 'package:aset_and_properti_up_lsm/app/models/users.dart';
 
+
 class OrdersModel {
+  String? docId;
+  DataOrder? data;
+
+  OrdersModel({this.docId, this.data});
+
+  OrdersModel.fromJson(Map<String, dynamic> json) {
+    docId = json['docId'];
+    data = json['data'] != null ?  DataOrder.fromJson(json['data']) : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data =  Map<String, dynamic>();
+    data['docId'] = this.docId;
+    if (this.data != null) {
+      data['data'] = this.data!.toJson();
+    }
+    return data;
+  }
+}
+
+class DataOrder {
   String? name;
   String? phone;
   int? jangkaWaktuSewa;
@@ -12,10 +34,10 @@ class OrdersModel {
   String? instansi;
   int? totalPembayaran;
   bool? statusPembayaran;
-  AsetsModel? ordersAset;
-  UsersModel? ordersUsers;
+  AsetDetails? orderAset;
+  UsersModel? orderUser;
 
-  OrdersModel(
+  DataOrder(
       {this.name,
       this.phone,
       this.jangkaWaktuSewa,
@@ -24,10 +46,10 @@ class OrdersModel {
       this.instansi,
       this.totalPembayaran,
       this.statusPembayaran,
-      this.ordersAset,
-      this.ordersUsers});
+      this.orderAset,
+      this.orderUser});
 
-  OrdersModel.fromJson(Map<String, dynamic> json) {
+  DataOrder.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     phone = json['phone'];
     jangkaWaktuSewa = json['jangka_waktu_sewa'];
@@ -36,11 +58,11 @@ class OrdersModel {
     instansi = json['instansi'];
     totalPembayaran = json['total_pembayaran'];
     statusPembayaran = json['status_pembayaran'];
-    ordersAset = json['orders_aset'] != null
-        ? AsetsModel.fromJson(json['orders_aset'])
+    orderAset = json['orders_aset'] != null
+        ? AsetDetails.fromJson(json['orders_aset'])
         : null;
-    ordersUsers = json['orders_users'] != null
-        ?  UsersModel.fromJson(json['orders_users'])
+    orderUser = json['orders_user'] != null
+        ?  UsersModel.fromJson(json['orders_user'])
         : null;
   }
 
@@ -54,11 +76,11 @@ class OrdersModel {
     data['instansi'] = this.instansi;
     data['total_pembayaran'] = this.totalPembayaran;
     data['status_pembayaran'] = this.statusPembayaran;
-    if (this.ordersAset != null) {
-      data['orders_aset'] = this.ordersAset!.toJson();
+    if (this.orderAset != null) {
+      data['orders_aset'] = this.orderAset!.toJson();
     }
-    if (this.ordersUsers != null) {
-      data['orders_users'] = this.ordersUsers!.toJson();
+    if (this.orderUser != null) {
+      data['orders_users'] = this.orderUser!.toJson();
     }
     return data;
   }

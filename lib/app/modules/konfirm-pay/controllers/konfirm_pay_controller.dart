@@ -93,17 +93,13 @@ class KonfirmPayController extends GetxController {
 
     final storageRef = storage.ref();
 
+    CollectionReference orders = firestore.collection('orders');
     final asetRef = storageRef.child("payment/");
     CollectionReference payments = firestore.collection('payments');
-    // int? jangkawaktusewa = int.tryParse(jangkaWaktuSewa!);
-
-    // print("$name $nohp $instansiC $jangkawaktusewa");
     try {
-      Map<String, dynamic> data = ordersModel!.toJson();
-
       loading.loading(Get.overlayContext!);
       await asetRef
-          .child("${ordersModel!.ordersUsers!.email}")
+          .child("${ordersModel!.data!.orderUser!.email}")
           .child(imagePathPayment.value)
           .putFile(image!);
 
@@ -115,24 +111,10 @@ class KonfirmPayController extends GetxController {
         "name_bank": namaBank,
         "jumlah": jumlah,
         "foto_bukti": imagePathPayment.value,
-        "pesan": pesanC.text,
-        "pays_orders": data
+        "pesan": pesanC.text == null ? "-" : pesanC.text,
+        "payment_order": orders.doc(ordersModel!.docId),
       }).then(
         (value) {
-          // firestore
-          //     .collection(value.parent.id)
-          //     .doc(value.id)
-          //     .get()
-          //     .then((DocumentSnapshot documentSnapshot) {
-          //   if (documentSnapshot.exists) {
-          //     print('Document exists on the database');
-          //     print(documentSnapshot.data());
-          //     Map<String, dynamic> data =
-          //         documentSnapshot.data() as Map<String, dynamic>;
-          //     // ordersModel = OrdersModel.fromJson(data);
-          //     // print(ordersModel);
-          //   }
-          // });
           Get.toNamed(Routes.HOME);
         },
       ).catchError((error) {
@@ -148,7 +130,7 @@ class KonfirmPayController extends GetxController {
     } catch (e) {
       Get.back();
       if (kDebugMode) {
-        print(e);
+        print("roor $e");
       }
     }
   }

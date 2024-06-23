@@ -1,9 +1,13 @@
 {
-    "nama": "saiful",
-    "lokasi": "saiful",
-    "alamat": "saiful",
-    "kabupaten": "saiful",
-    "harga": "saiful",
-    "booking": "saiful",
-    "status": "saiful"
+    "docId": {
+        "kabupaten": "Lhoksukon",
+        "title": "Gedung Aula seni A",
+        "picture": "https://firebasestorage.googleapis.com/v0/b/project-aset-properti-up-lsm.appspot.com/o/imageAset%2FIMG_20240528_001805.jpg?alt=media&token=1cfb3050-4b0c-4d43-aadd-bb510b935c22",
+        "jangka_waktu": "Sehari",
+        "User": "DocumentReference<Map<String, dynamic>>(users/saifulkamil18@gmail.com)",
+        "kategori": "GEDUNG AULA",
+        "lokasi": "Jl medan banda aceh, Desa baru",
+        "alamat": "Lhoksukon",
+        "harga": 10000000
+    }
 }

@@ -27,11 +27,25 @@ class WidgetAsetTersedia extends StatelessWidget {
               return const Center(child: CircularProgressIndicator());
             }
 
-            List<AsetsModel> allAsets = [];
+            QuerySnapshot<Map<String, dynamic>> querySnapshot = snapshot.data!;
+            List<DocumentSnapshot<Map<String, dynamic>>> documents =
+                querySnapshot.docs;
 
-            for (var element in snapshot.data!.docs) {
-              allAsets.add(AsetsModel.fromJson(element.data()));
-            }
+            List<AsetsModel> allAsets = [];
+            documents.forEach((doc) {
+              Map<String, dynamic>? data = doc.data();
+              String documentId = doc.id; // Get document ID
+
+              // Convert data to AsetDetails
+              AsetDetails asetDetails = AsetDetails.fromJson(data!);
+
+              // Create AsetsModel
+              AsetsModel asetsModel =
+                  AsetsModel(docId: documentId, data: asetDetails);
+
+              allAsets.add(asetsModel);
+            });
+            // for (var element in snapshot.data!.docs) {}
             return ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: allAsets.length,
@@ -42,7 +56,8 @@ class WidgetAsetTersedia extends StatelessWidget {
                     padding: const EdgeInsets.only(right: 15.0),
                     child: InkWell(
                         onTap: () {
-                          Get.toNamed(Routes.DETAIL_TANAH, arguments: asestModel);
+                          Get.toNamed(Routes.DETAIL_TANAH,
+                              arguments: asestModel);
                         },
                         child: AsetTersedia(
                           asestModel: asestModel,
@@ -79,7 +94,8 @@ class AsetTersedia extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8),
                 child: Image.network(
-                  "${asestModel!.picture}",
+                  "${asestModel!.data!.picture}",
+                  fit: BoxFit.cover,
                 ),
               ),
             ),
@@ -91,7 +107,7 @@ class AsetTersedia extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10.0),
                   child: Text(
-                     "Tersedia",
+                    "Tersedia",
                     style: ColorApp.whiteTextStyly(context)
                         .copyWith(fontSize: 12, fontWeight: semiBold),
                   ),
@@ -103,10 +119,10 @@ class AsetTersedia extends StatelessWidget {
         const SizedBox(
           height: 5,
         ),
-        Text("${asestModel!.alamat}",
+        Text("${asestModel!.data!.alamat}",
             style: ColorApp.blackTextStyle(context)
                 .copyWith(fontSize: 17, fontWeight: bold)),
-        Text(formatter.format(asestModel!.harga),
+        Text(formatter.format(asestModel!.data!.harga),
             style: ColorApp.blackTextStyle(context)
                 .copyWith(fontSize: 15, fontWeight: medium)),
       ],

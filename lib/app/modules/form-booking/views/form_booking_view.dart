@@ -23,6 +23,8 @@ class FormBookingView extends GetView<FormBookingController> {
         body: CustomScrollView(
           slivers: [
             SliverAppBar(
+              backgroundColor: whiteMain,
+              foregroundColor: whiteMain,
               title: Text(
                 form,
                 style: ColorApp.greenTextStyly(context)
@@ -68,7 +70,7 @@ class FormBookingView extends GetView<FormBookingController> {
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(8),
                                   child: Image.network(
-                                    "${controller.asetdetail!.picture}",
+                                    "${controller.asetsModel!.data!.picture}",
                                   ),
                                 ),
                               ),
@@ -94,14 +96,14 @@ class FormBookingView extends GetView<FormBookingController> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      "${controller.asetdetail!.title}",
+                                      "${controller.asetsModel!.data!.title}",
                                       style: ColorApp.whiteTextStyly(context)
                                           .copyWith(
                                               fontSize: 18,
                                               fontWeight: semiBold),
                                     ),
                                     Text(
-                                      "${controller.asetdetail!.alamat}",
+                                      "${controller.asetsModel!.data!.alamat}",
                                       style: ColorApp.whiteTextStyly(context)
                                           .copyWith(
                                               fontSize: 16,
@@ -133,7 +135,7 @@ class FormBookingView extends GetView<FormBookingController> {
                                         fontSize: 15, fontWeight: semiBold),
                               ),
                               Text(
-                                "${controller.asetdetail!.kategori}",
+                                "${controller.asetsModel!.data!.kategori}",
                                 style: ColorApp.blackTextStyle(context)
                                     .copyWith(
                                         fontSize: 15, fontWeight: semiBold),
@@ -155,13 +157,14 @@ class FormBookingView extends GetView<FormBookingController> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                formatter.format(controller.asetdetail!.harga),
+                                formatter.format(controller.asetsModel!.data!.harga),
+                                // ",",
                                 style: ColorApp.blackTextStyle(context)
                                     .copyWith(
                                         fontSize: 15, fontWeight: semiBold),
                               ),
                               Text(
-                                "${controller.asetdetail!.jangka_waktu}",
+                                "${controller.asetsModel!.data!.jangka_waktu}",
                                 style: ColorApp.blackTextStyle(context)
                                     .copyWith(
                                         fontSize: 15, fontWeight: semiBold),
@@ -349,7 +352,7 @@ class FormBookingView extends GetView<FormBookingController> {
                                               fontSize: 16, fontWeight: bold),
                                     ),
                                     Text(
-                                      tahunan,
+                                     "${controller.asetsModel!.data!.jangka_waktu}",
                                       style: ColorApp.blackTextStyle(context)
                                           .copyWith(
                                               fontSize: 12, fontWeight: medium),

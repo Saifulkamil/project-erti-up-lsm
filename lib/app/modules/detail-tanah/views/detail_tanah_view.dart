@@ -32,7 +32,8 @@ class DetailTanahView extends GetView<DetailTanahController> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8),
                     child: Image.network(
-                      "${controller.asestdetail!.picture}",
+                      "${controller.asetsModel!.data!.picture}",
+                      fit: BoxFit.fill,
                     ),
                   ),
                 ),
@@ -43,7 +44,7 @@ class DetailTanahView extends GetView<DetailTanahController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "${controller.asestdetail!.title}",
+                      "${controller.asetsModel!.data!.title}",
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: ColorApp.blackTextStyle(context)
@@ -69,7 +70,7 @@ class DetailTanahView extends GetView<DetailTanahController> {
                               .copyWith(fontSize: 15, fontWeight: semiBold),
                         ),
                         Text(
-                          "${controller.asestdetail!.lokasi}",
+                          "${controller.asetsModel!.data!.lokasi}",
                           style: ColorApp.blackTextStyle(context)
                               .copyWith(fontSize: 15, fontWeight: reguler),
                         ),
@@ -87,7 +88,7 @@ class DetailTanahView extends GetView<DetailTanahController> {
                               .copyWith(fontSize: 15, fontWeight: semiBold),
                         ),
                         Text(
-                          "${controller.asestdetail!.alamat}",
+                          "${controller.asetsModel!.data!.alamat}",
                           style: ColorApp.blackTextStyle(context)
                               .copyWith(fontSize: 15, fontWeight: reguler),
                         ),
@@ -105,7 +106,7 @@ class DetailTanahView extends GetView<DetailTanahController> {
                               .copyWith(fontSize: 15, fontWeight: semiBold),
                         ),
                         Text(
-                          "${controller.asestdetail!.kabupaten}",
+                          "${controller.asetsModel!.data!.kabupaten}",
                           style: ColorApp.blackTextStyle(context)
                               .copyWith(fontSize: 15, fontWeight: reguler),
                         ),
@@ -131,7 +132,7 @@ class DetailTanahView extends GetView<DetailTanahController> {
                               .copyWith(fontSize: 15, fontWeight: semiBold),
                         ),
                         Text(
-                          formatter.format(controller.asestdetail!.harga),
+                          formatter.format(controller.asetsModel!.data!.harga),
                           style: ColorApp.blackTextStyle(context)
                               .copyWith(fontSize: 15, fontWeight: reguler),
                         ),
@@ -145,7 +146,7 @@ class DetailTanahView extends GetView<DetailTanahController> {
                 ),
                 ButtonCustom(
                   onPressed: () {
-                    Get.toNamed(Routes.FORM_BOOKING, arguments: controller.asestdetail);
+                    Get.toNamed(Routes.FORM_BOOKING, arguments: controller.asetsModel);
                   },
                   text: booking_sekaran,
                   icon: Icons.login_outlined,

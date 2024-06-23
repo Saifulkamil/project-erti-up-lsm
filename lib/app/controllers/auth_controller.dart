@@ -71,7 +71,6 @@ class AuthController extends GetxController {
       if (userCredential.additionalUserInfo!.isNewUser) {
         await users.doc(email).set({
           'email': email,
-          'password': password,
         }).then((value) {
           toastsucces('Cek email anda untuk verikasi');
           Timer(const Duration(milliseconds: 1000), () {
