@@ -5,8 +5,8 @@ class LoginController extends GetxController {
   RxBool isHidden = true.obs;
   final formkey = GlobalKey<FormState>();
 
-  TextEditingController emailC = TextEditingController(text: "saifulkamil18@gmail.com");
-  TextEditingController passC = TextEditingController(text: "123");
+  TextEditingController emailC = TextEditingController();
+  TextEditingController passC = TextEditingController();
 
   @override
   void dispose() {

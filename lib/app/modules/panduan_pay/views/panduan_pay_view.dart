@@ -34,10 +34,16 @@ class PanduanPayView extends GetView<PanduanPayController> {
                   SliverAppBar(
                     title: Text(
                       metode_pay,
+
                       // "${controller.ordersModel!.docId}",
                       style: ColorApp.greenTextStyly(context)
                           .copyWith(fontSize: 18, fontWeight: semiBold),
                     ),
+                    leading: IconButton(
+                        onPressed: () {
+                          Get.offAllNamed(Routes.HOME);
+                        },
+                        icon: const Icon(Icons.arrow_back)),
                     pinned: true,
                   ),
                   SliverToBoxAdapter(

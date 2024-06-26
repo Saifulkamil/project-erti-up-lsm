@@ -4,11 +4,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 
 import '../../../controllers/auth_controller.dart';
 import '../../../models/asets.dart';
-import '../../../models/users.dart';
 import '../../../routes/app_pages.dart';
 import '../../../utils/component/widget_loading.dart';
 
@@ -54,11 +52,39 @@ class FormBookingController extends GetxController {
           child: child!,
         );
       },
-    ).then((picked) {
+    ).then((picked) async {
       if (picked != null && picked != selectedDate.value) {
         selectedDate(picked);
+        QuerySnapshot mulaiSewaQuery = await firestore
+            .collection("orders")
+            .where('mulai_sewa_tanggal',
+                isLessThanOrEqualTo: selectedDate.value)
+            .get();
+
+        // Query kedua untuk akhir_sewa_tanggal
+        QuerySnapshot akhirSewaQuery = await firestore
+            .collection("orders")
+            .where('akhir_sewa_tanggal',
+                isGreaterThanOrEqualTo: selectedDate.value)
+            .get();
+
+        List<DocumentSnapshot> combinedResults = mulaiSewaQuery.docs
+            .where((doc) =>
+                akhirSewaQuery.docs.any((akhirDoc) => akhirDoc.id == doc.id))
+            .toList();
+
+        // Cetak hasil
+        // print(Timestamp.fromDate(selectedDate.value));
+        // print(combinedResults.length);
+        if (combinedResults.isNotEmpty) {
+          Get.defaultDialog(
+              title: "MAAF",
+              middleText: "maaf untuk tanggal ini sudah ada yang booking",
+              backgroundColor: whiteMain);
+        } else {
+          selectTime(context);
+        }
       }
-      selectTime(context);
     });
   }
 
@@ -99,15 +125,27 @@ class FormBookingController extends GetxController {
 
   Future<void> bookinAset(String name, String nohp, String? instansi,
       String? jangkaWaktuSewa) async {
-    String formattedDate = DateFormat('dd-MM-yyyy').format(selectedDate.value);
-    String formattedTime =
-        '${selectedTime.value.hour}:${selectedTime.value.minute}';
-
     String createdate = createdAt.string;
     CollectionReference order = firestore.collection('orders');
     CollectionReference asets = firestore.collection('asets');
     CollectionReference users = firestore.collection('users');
-    int? jangkawaktusewa = int.tryParse(jangkaWaktuSewa!);
+    int? jangkasewa = int.tryParse(jangkaWaktuSewa!);
+    DateTime? newDate;
+    if (asetsModel!.data!.jangka_waktu == "SETENGAH HARI" ||
+        asetsModel!.data!.jangka_waktu == "HARIAN") {
+      newDate = selectedDate.value.add(Duration(days: jangkasewa ?? 0));
+    } else if (asetsModel!.data!.jangka_waktu == "BULANAN") {
+      newDate = selectedDate.value.add(Duration(days: jangkasewa! * 30));
+    } else if (asetsModel!.data!.jangka_waktu == "TAHUNAN") {
+      newDate = selectedDate.value.add(Duration(days: jangkasewa! * 360));
+    }
+    DateTime getDateWithZeroTime() {
+      // Ensure a valid DateTime object
+      final now = selectedDate.value ?? DateTime.now();
+
+      // Set the time to 00:00:00
+      return DateTime(now.year, now.month, now.day);
+    }
 
     try {
       loading.loading(Get.overlayContext!);
@@ -115,15 +153,15 @@ class FormBookingController extends GetxController {
       await order.add({
         "name": name,
         "phone": nohp,
-        "jangka_waktu_sewa": jangkawaktusewa,
+        "jangka_waktu_sewa": jangkasewa,
         "orders_aset": asets.doc(asetsModel!.docId),
         "orders_user": users.doc(authC.email),
-        "mulai_sewa_tanggal": formattedDate,
-        "mulai_sewa_waktu": formattedTime,
+        "mulai_sewa_tanggal": Timestamp.fromDate(getDateWithZeroTime()),
+        "akhir_sewa_tanggal": Timestamp.fromDate(newDate!),
         "created_at": createdate,
         "update_at": createdate,
         "instansi": instansiC.text,
-        "total_pembayaran": asetsModel!.data!.harga! * jangkawaktusewa!,
+        "total_pembayaran": asetsModel!.data!.harga! * jangkasewa!,
         "status_pembayaran": false,
       }).then(
         (value) {

@@ -2,6 +2,7 @@
 
 import 'package:aset_and_properti_up_lsm/app/models/asets.dart';
 import 'package:aset_and_properti_up_lsm/app/models/users.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 
 class OrdersModel {
@@ -29,7 +30,7 @@ class DataOrder {
   String? name;
   String? phone;
   int? jangkaWaktuSewa;
-  String? mulaiSewaTanggal;
+  Timestamp? mulaiSewaTanggal;
   String? mulaiSewaWaktu;
   String? instansi;
   int? totalPembayaran;

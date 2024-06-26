@@ -2,18 +2,21 @@
 
 class AsetsModel {
   String? docId;
+  bool? booking;
   AsetDetails? data;
 
-  AsetsModel({this.docId, this.data});
+  AsetsModel({this.docId, this.data, this.booking});
 
   AsetsModel.fromJson(Map<String, dynamic> json) {
     docId = json['docId'];
+    booking = json['booking'];
     data = json['data'] != null ? AsetDetails.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = Map<String, dynamic>();
     data['docId'] = this.docId;
+    data['booking'] = this.booking;
     if (this.data != null) {
       data['data'] = this.data!.toJson();
     }

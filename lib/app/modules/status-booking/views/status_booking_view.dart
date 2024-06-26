@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-import '../../../models/asets.dart';
 import '../../../utils/component/widget_konfirm_aset.dart';
 import '../controllers/status_booking_controller.dart';
 
@@ -73,7 +72,10 @@ class StatusBookingView extends GetView<StatusBookingController> {
                           child: CircularProgressIndicator(
                         color: greenColor,
                       ));
-                    } else {
+                    } else if(snapshot.hasError){
+                       return const Center(
+                          child: Icon(Icons.abc));
+                    }else{
                       return ListView.builder(
                           itemCount: snapshot.data!.length,
                           itemBuilder: (context, index) {

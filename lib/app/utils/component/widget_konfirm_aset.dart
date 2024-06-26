@@ -1,7 +1,7 @@
-
 import 'package:aset_and_properti_up_lsm/app/models/orders.dart';
 import 'package:aset_and_properti_up_lsm/app/utils/component/widget_button_custom.dart';
 import 'package:aset_and_properti_up_lsm/app/utils/text.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -25,8 +25,12 @@ class WidgetkonfirmAset extends StatelessWidget {
       int? jangkawaktu = ordersModel!.data!.jangkaWaktuSewa;
       final formatter = NumberFormat.currency(
           locale: 'id_ID', symbol: 'Rp ', decimalDigits: 0);
-      String? tanggalWaktusewa =
-          "${ordersModel!.data!.mulaiSewaTanggal} ${ordersModel!.data!.mulaiSewaWaktu}";
+      String formatTimestamp(Timestamp? timestamp) {
+        DateTime date = timestamp!.toDate();
+        DateFormat formatter = DateFormat('dd-MM-yyyy');
+        return formatter.format(date);
+      }
+
       return Container(
         height: 740,
         decoration: BoxDecoration(
@@ -235,7 +239,7 @@ class WidgetkonfirmAset extends StatelessWidget {
                               .copyWith(fontSize: 17, fontWeight: semiBold),
                         ),
                         Text(
-                          tanggalWaktusewa,
+                          formatTimestamp(ordersModel!.data!.mulaiSewaTanggal),
                           style: ColorApp.blackTextStyle(context)
                               .copyWith(fontSize: 16, fontWeight: reguler),
                         ),
@@ -317,7 +321,8 @@ class WidgetkonfirmAset extends StatelessWidget {
                                     ordersModel!.data!.orderAset!.harga! *
                                         jangkawaktu!),
                                 style: ColorApp.blackTextStyle(context)
-                                    .copyWith(fontSize: 16, fontWeight: semiBold),
+                                    .copyWith(
+                                        fontSize: 16, fontWeight: semiBold),
                               ),
                               Text(
                                 total_bayar,
@@ -340,12 +345,12 @@ class WidgetkonfirmAset extends StatelessWidget {
                             },
                           )
                         : const Center(
-                          child: Icon(
+                            child: Icon(
                               Icons.check_circle,
                               size: 70,
                               color: Colors.green,
                             ),
-                        )
+                          )
                   ],
                 ),
                 const SizedBox(
@@ -601,8 +606,8 @@ class WidgetkonfirmAset extends StatelessWidget {
                               .copyWith(fontSize: 17, fontWeight: semiBold),
                         ),
                         Text(
-                          formatter
-                              .format(formBookingController!.asetsModel!.data!.harga),
+                          formatter.format(
+                              formBookingController!.asetsModel!.data!.harga),
                           style: ColorApp.blackTextStyle(context)
                               .copyWith(fontSize: 16, fontWeight: reguler),
                         ),
@@ -652,9 +657,9 @@ class WidgetkonfirmAset extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                formatter.format(
-                                    formBookingController!.asetsModel!.data!.harga! *
-                                        jangkawaktu!),
+                                formatter.format(formBookingController!
+                                        .asetsModel!.data!.harga! *
+                                    jangkawaktu!),
                                 style: ColorApp.blackTextStyle(context)
                                     .copyWith(fontSize: 16, fontWeight: bold),
                               ),

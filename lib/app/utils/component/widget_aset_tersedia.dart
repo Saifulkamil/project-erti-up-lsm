@@ -1,6 +1,5 @@
 import 'package:aset_and_properti_up_lsm/app/routes/app_pages.dart';
 import 'package:aset_and_properti_up_lsm/app/utils/colors.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -20,51 +19,29 @@ class WidgetAsetTersedia extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 165,
-      child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-          stream: homeController!.streamAsets(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            }
-
-            QuerySnapshot<Map<String, dynamic>> querySnapshot = snapshot.data!;
-            List<DocumentSnapshot<Map<String, dynamic>>> documents =
-                querySnapshot.docs;
-
-            List<AsetsModel> allAsets = [];
-            documents.forEach((doc) {
-              Map<String, dynamic>? data = doc.data();
-              String documentId = doc.id; // Get document ID
-
-              // Convert data to AsetDetails
-              AsetDetails asetDetails = AsetDetails.fromJson(data!);
-
-              // Create AsetsModel
-              AsetsModel asetsModel =
-                  AsetsModel(docId: documentId, data: asetDetails);
-
-              allAsets.add(asetsModel);
-            });
-            // for (var element in snapshot.data!.docs) {}
-            return ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: allAsets.length,
-                itemBuilder: (context, index) {
-                  AsetsModel asestModel = allAsets[index];
-
-                  return Padding(
-                    padding: const EdgeInsets.only(right: 15.0),
-                    child: InkWell(
-                        onTap: () {
-                          Get.toNamed(Routes.DETAIL_TANAH,
-                              arguments: asestModel);
-                        },
-                        child: AsetTersedia(
-                          asestModel: asestModel,
-                        )),
-                  );
-                });
-          }),
+      child: GetX<HomeController>(builder: (controller) {
+        if (!controller.isProjectLoaded.value) {
+          // Jika data proyek belum dimuat, tampilkan loading atau indikator lainnya
+          return const Center(child: CircularProgressIndicator());
+        } else {
+          return ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: homeController!.listAset.length,
+              itemBuilder: (context, index) {
+                AsetsModel asestModel = homeController!.listAset[index];
+                return Padding(
+                  padding: const EdgeInsets.only(right: 15.0),
+                  child: InkWell(
+                      onTap: () {
+                        Get.toNamed(Routes.DETAIL_TANAH, arguments: asestModel);
+                      },
+                      child: AsetTersedia(
+                        asestModel: asestModel,
+                      )),
+                );
+              });
+        }
+      }),
     );
   }
 }
